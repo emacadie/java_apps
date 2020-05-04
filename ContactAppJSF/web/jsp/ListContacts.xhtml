@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title>User Main Page</title>
+        <style type="text/css" media="all">@import "#{request.contextPath}/html/layout1.css";</style>
+    </h:head>
+
+    <h:body>
+        <f:view>
+            <!-- ui:include src="/WEB-INF/html/header.html" / -->
+
+            <div id="Logo"></div>
+
+            <div id="Header">
+                <a href="#{request.contextPath}/jsp/UserMainPage.faces" title="Contact Web App">Contact Web App</a>
+            </div>
+
+             <ui:insert name="headerfff" >
+                <ui:include src="/WEB-INF/Header.xhtml" />
+            </ui:insert>
+
+            <div id="Content">
+
+            <h1>Contact App Admin Main Page</h1>
+
+            <c:if test="${userBean.loggedIn != 1}">
+                <p>You are not logged in. Please go to the <a href="#{request.contextPath}/jsp/UserLoginPage.faces">login page</a> to login or 
+                to the <a href="#{request.contextPath}/jsp/UserSignupPage.faces">sign up page</a> to sign up.</p>
+            </c:if> <!-- if user is not logged in -->
+
+            <c:if test="${userBean.loggedIn == 1}">
+
+                <h:dataTable id="boogabooga" border="2"  value="#{userBean.contactList}" var="sr123">
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="FirstName" /> </f:facet>
+                        <h:outputText value="#{sr123.firstName}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Last Name" /> </f:facet>
+                        <h:outputText value="#{sr123.lastName}" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Date Stamp" /> </f:facet>
+                        <h:outputText value="#{sr123.datestamp}" />
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="List Contact" /> </f:facet>
+                        <h:form>
+                            <h:commandLink action="#{contactBean.listContact(sr123.contactCounter)}">
+                                <h:outputText value="List this guy now" />
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="List addresses" /> </f:facet>
+                        <h:form>
+                            <h:commandLink action="#{ContactBean.listAddresses(sr123.contactCounter)}">
+                                <h:outputText value="List addresses" />
+                                <f:param name="dropName" value="#{sr123.contactCounter}" />
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+
+
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Delete" /> </f:facet>
+                        <h:form>
+                            <h:commandLink action="#{contactBean.dropContact(sr123.contactCounter)}">
+                                <h:outputText value="Click here to delete" />
+                                <f:param name="dropName" value="#{sr123.contactCounter}" />
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Add Email" /> </f:facet>
+                        <h:form>
+                            <h:commandLink action="#{ContactBean.addEmail(sr123.contactCounter)}">
+                                <h:outputText value="Click here to delete" />
+                                <f:param name="dropName" value="#{sr123.contactCounter}" />
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Add Address" /> </f:facet>
+                        Click <a href="#{request.contextPath}/jsp/AddContactAddress.faces">here</a> to add address
+                    </h:column>
+
+                </h:dataTable>
+
+            </c:if> <!-- if user is logged in  -->
+
+            <!-- ui:include src="/WEB-INF/html/footer.html" / -->
+            <hr />
+            <p>Thank you for using the Contact Web App.</p>
+
+            </div> <!-- end div Content -->
+
+            <br /><br /><br /><br /><br />
+            <hr />
+            <br />
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <br /><br /><br />
+
+        </f:view>
+
+    </h:body>
+
+</html>
+

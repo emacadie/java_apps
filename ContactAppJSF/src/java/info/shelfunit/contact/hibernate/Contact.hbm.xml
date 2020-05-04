@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 24, 2011 2:46:13 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="info.shelfunit.contact.hibernate.Contact" table="contact" catalog="contactdb">
+        <id name="contactCounter" type="java.lang.Integer">
+            <column name="contact_counter" />
+            <generator class="identity" />
+        </id>
+        <version name="version" type="int">
+            <column name="version" not-null="true" />
+        </version>
+        <property name="firstName" type="string">
+            <column name="first_name" length="22" not-null="true" />
+        </property>
+        <property name="lastName" type="string">
+            <column name="last_name" length="22" not-null="true" />
+        </property>
+        <property name="isActive" type="string">
+            <column name="is_active" length="2" />
+        </property>
+        <property name="datestamp" type="timestamp">
+            <column name="datestamp" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

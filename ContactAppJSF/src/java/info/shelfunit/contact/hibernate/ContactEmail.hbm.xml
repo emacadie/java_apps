@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Oct 24, 2011 2:46:13 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="info.shelfunit.contact.hibernate.ContactEmail" table="contact_email" catalog="contactdb">
+        <id name="emailCounter" type="java.lang.Integer">
+            <column name="email_counter" />
+            <generator class="identity" />
+        </id>
+        <version name="version" type="int">
+            <column name="version" not-null="true" />
+        </version>
+        <property name="contactCounter" type="int">
+            <column name="contact_counter" not-null="true" />
+        </property>
+        <property name="emailAddress" type="string">
+            <column name="email_address" length="22" not-null="true" />
+        </property>
+        <property name="isPrimary" type="string">
+            <column name="is_primary" length="2" />
+        </property>
+        <property name="isActive" type="string">
+            <column name="is_active" length="2" />
+        </property>
+        <property name="datestamp" type="timestamp">
+            <column name="datestamp" length="19" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

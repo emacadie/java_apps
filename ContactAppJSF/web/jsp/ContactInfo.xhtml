@@ -1,0 +1,215 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core"
+xmlns:c="http://java.sun.com/jsp/jstl/core"
+xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <title>User Main Page</title>
+        <style type="text/css" media="all">@import "#{request.contextPath}/html/layout1.css";</style>
+    </h:head>
+
+    <h:body>
+        <f:view>
+        <!-- ui:include src="/WEB-INF/html/header.html" / -->
+
+        <div id="Logo"></div>
+
+        <div id="Header">
+            <a href="#{request.contextPath}/jsp/UserMainPage.faces" title="Contact Web App">Contact Web App</a>
+        </div>
+
+         <ui:insert name="headerfff" >
+            <ui:include src="/WEB-INF/Header.xhtml" />
+        </ui:insert>
+
+        <div id="Content">
+
+            <h1>Contact Info Page</h1>
+
+            <c:if test="${userBean.loggedIn != 1}">
+                <p>You are not logged in. Please go to the <a href="#{request.contextPath}/jsp/UserLoginPage.faces">login page</a> to login or 
+                to the <a href="#{request.contextPath}/jsp/UserSignupPage.faces">sign up page</a> to sign up.</p>
+            </c:if> <!-- if user is not logged in -->
+
+            <c:if test="${userBean.loggedIn == 1}">
+
+                <p>Info for contact <h:outputText id="firstName1" value="#{contactBean.firstName}" /> 
+
+                    <h:outputText id="lastName1" value="#{contactBean.lastName}" />
+                    who is contact 
+                    <h:outputText id="contactCounterJJJ" value="#{contactBean.contactCounter}" />
+                </p>
+                <br />
+                <hr />
+                <p>Emails for this contact</p>
+
+                <h:dataTable id="cEmailList" border="2"  value="#{contactBean.contactEmailList}" var="sr123">
+                
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Address" /> </f:facet>
+                        <h:outputText value="#{sr123.emailAddress}" />
+                    </h:column>    
+
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Primary" /> </f:facet>
+                        <h:outputText value="#{sr123.isPrimary}" />
+                    </h:column>   
+                    
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Email counter" /> </f:facet>
+                        <h:outputText value="#{sr123.emailCounter}" />
+                    </h:column>   
+                    
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Contact Counter" /> </f:facet>
+                        <h:outputText value="#{sr123.contactCounter}" />
+                    </h:column>   
+
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Delete" /> </f:facet>
+                        <h:form>
+                            
+                            <h:commandLink action="#{contactEmailBean.deleteContactEmail(sr123.contactCounter,sr123.emailCounter)}">
+                                <h:outputText value="Click here to delete" />
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                    
+                     <h:column>
+                        <f:facet name="header"> <h:outputText value="Update Email" /> </f:facet>
+                        <!-- a href="#{request.contextPath}/jsp/UpdateEmailForm.faces">Click here to update</a -->
+                        
+                        <h:form>
+                            
+                            <h:commandLink action="#{contactBean.forwardUpdateContactEmail(sr123.contactCounter,sr123.emailCounter,sr123.emailAddress,sr123.isPrimary)}">
+                                <h:outputText value="Click here to Update" />
+                            </h:commandLink>
+                        </h:form>
+                        
+                    </h:column>
+                    
+                </h:dataTable>
+                
+                <hr />
+                
+                <p>Addresses for this contact</p>
+
+                <h:dataTable id="cAddressList" border="2"  value="#{contactBean.contactPhoneList}" var="sr456">
+                
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Phone" /> </f:facet>
+                        <h:outputText value="#{sr456.phoneNumber}" />
+                    </h:column>  
+
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Primary" /> </f:facet>
+                        <h:outputText value="#{sr456.isPrimary}" />
+                    </h:column>   
+                    
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Contact Counter" /> </f:facet>
+                        <h:outputText value="#{sr456.contactCounter}" />
+                    </h:column>  
+                    
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Phone Counter" /> </f:facet>
+                        <h:outputText value="#{sr456.phoneCounter}" />
+                    </h:column>  
+
+                    <h:column>
+                    <f:facet name="header"> <h:outputText value="Delete" /> </f:facet>
+                        <h:form>
+                            <h:commandLink action="#{contactPhoneBean.deleteContactPhone(sr456.contactCounter,sr456.phoneCounter)}">
+                                <h:outputText value="Click here to delete" />
+                            </h:commandLink>
+                        </h:form>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header"> <h:outputText value="Update Phone" /> </f:facet>
+                        <!-- a href="#{request.contextPath}/jsp/UpdateEmailForm.faces">Click here to update</a -->
+                        
+                        <h:form>
+                                                                                                   
+                            <h:commandLink action="#{contactBean.forwardUpdateContactPhone(sr456.contactCounter,sr456.phoneCounter,sr456.phoneNumber,sr456.isPrimary)}"> 
+            
+            
+
+                    
+            
+                                <h:outputText value="Click here to Update" />
+                            </h:commandLink>
+                        </h:form>
+                        
+                    </h:column>
+
+                </h:dataTable>
+                
+
+                <hr />
+                <p>Enter a new Phone Number:</p>
+                <h:form>
+
+                    <p>Enter phone number: <h:inputText value="#{contactPhoneBean.phoneNumber}" id="streetAddress1" required="true"/>
+                    </p>
+
+                    <p>
+                        <h:outputLabel rendered="true" for="isPrimary">
+                            <h:outputText value="Is this the primary contact" />
+                        </h:outputLabel>
+                        <h:selectOneMenu id="isPrimary" value="#{contactPhoneBean.isPrimary}">
+                            <f:selectItem itemLabel="y"   itemValue="y" />
+                            <f:selectItem itemLabel="n"   itemValue="n" />
+                        </h:selectOneMenu>
+                    </p>
+                    <p><h:commandButton value="Submit" rendered="true" action="#{contactPhoneBean.addContactPhone(contactBean.contactCounter)}" /></p>
+
+                </h:form>
+
+                <br /><br />           
+                <p>Enter a new email address</p>
+
+                <h:form>
+
+                    <p>Enter email address: <h:inputText value="#{contactEmailBean.emailAddress}" id="emailAddresss1" required="true"/>
+                    </p>
+
+                    <p>
+                    <h:outputLabel rendered="true" for="isPrimary2">
+                        <h:outputText value="Is this the primary contact" />
+                    </h:outputLabel>
+                    <h:selectOneMenu id="isPrimary2" value="#{contactEmailBean.isPrimary}">
+                        <f:selectItem itemLabel="y"   itemValue="y" />
+                        <f:selectItem itemLabel="n"   itemValue="n" />
+
+                    </h:selectOneMenu>
+                    </p><!-- contactBean.addContactEmail(contactBean.contactCounter) -->
+                    <p><h:commandButton value="Submit" rendered="true" action="#{contactEmailBean.addContactEmail(contactBean.contactCounter)}" /></p>
+
+                </h:form>
+
+            </c:if> <!-- if user is logged in  -->
+
+            <!-- ui:include src="/WEB-INF/html/footer.html" / -->
+            <hr />
+            <p>Thank you for using the Contact Web App.</p>
+
+        </div> <!-- end div Content -->
+
+        <br /><br /><br /><br /><br />
+        <hr />
+        <br />
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <br /><br /><br />
+
+        </f:view>
+
+    </h:body>
+
+</html>
+
+
+

@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <title>Contact Web App</title>
+        <style type="text/css" media="all">@import "#{request.contextPath}/html/layout1.css";</style>
+    </h:head>
+
+
+    <h:body>
+        <!-- ui:include src="/WEB-INF/html/header.html" / -->
+
+        <div id="Logo"></div>
+        <div id="Header">
+            <a href="#{request.contextPath}/jsp/UserMainPage.faces" title="Contact Web App">Contact Web App</a>
+        </div>
+
+        <div id="Menu">
+            <a href="#{request.contextPath}/index.xhtml">Welcome Page</a><br />
+            <a href="#{request.contextPath}/jsp/loginForm.faces">Login</a> <br />
+            <a href="#{request.contextPath}/jsp/UserMainPage.faces">Admin Main Page</a><br />
+            <a href="#{request.contextPath}/jsp/listUsers.faces">List Users</a> <br />
+            <a href="#{request.contextPath}/jsp/addUserForm.faces">Add A User</a><br />
+            <a href="#{request.contextPath}/jsp/dropUserForm.faces">Drop A User</a><br />
+            <a href="#{request.contextPath}/jsp/listInboxMessages.faces">List Inbox Messages</a><br />
+            <a href="#{request.contextPath}/jsp/logOutForm.faces">Log out</a> <br />
+        </div>
+
+        <div id="Content">
+            Hello from Facelets
+            <p>Click <a href="jsp/UserMainPage.jsf">here</a> to log in</p>
+
+            <!-- ui:include src="/WEB-INF/html/footer.html" / -->
+            <hr />
+            <p>Thank you for using the Contact Web App.</p>
+            <p><h:outputText id="contactCounterJJJ" value="#{contactBean.contactCounter}" /></p>
+
+        </div> <!-- end div Content -->
+        
+        <br /><br /><br /><br /><br />
+        <hr />
+        <br />
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <br /><br /><br />
+
+    </h:body>
+
+</html>
+
+

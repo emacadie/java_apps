@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <h:head>
+        <title>Facelet Title</title>
+        <style type="text/css" media="all">@import "#{request.contextPath}/html/layout1.css";</style>
+    </h:head>
+    
+    <h:body>
+        <f:view> <!--    <ui:composition template="/pages/include/includetemplate.xhtml"> -->
+        <!-- ui:include src="/WEB-INF/html/header.html" / -->
+
+        <div id="Logo"></div>
+
+        <div id="Header">
+            <a href="#{request.contextPath}/jsp/UserMainPage.faces" title="Contact Web App">Contact Web App</a>
+        </div>
+
+         <ui:insert name="headerfff" >
+            <ui:include src="/WEB-INF/Header.xhtml" />
+        </ui:insert>
+        
+        <div id="Content">
+
+            <h1>Login Form</h1>
+            <c:if test="${userBean.loggedIn == 1}">
+
+                <p>It's sooo nice to see that <h:outputText id="mainPage1" value="#{userBean.userName}" /> decided to come to church this week.</p>
+
+                <p>You're already logged in, chief. What are you doing here?</p>
+                
+            </c:if> <!-- if user is logged in  -->
+
+            <c:if test="${userBean.loggedIn != 1}">
+                <h:form>
+                    <p>Enter your name: <h:inputText value="#{userBean.userName}" id="userName" required="true"/>
+                    <h:message for="name" /></p>
+
+                    <p>Enter your password: <h:inputText value="#{userBean.password}" id="password" required="true"> </h:inputText>
+                    </p>
+                    
+                    <p>Enter your password again: <h:inputText value="#{userBean.confirmPassword}" id="confirmPassword" required="true"> </h:inputText>
+                    </p>
+                    
+                    <p>Enter your email address: <h:inputText value="#{userBean.emailAddress}" id="emailAddress" required="true"> </h:inputText>
+                    </p>
+                    <p>
+                    <h:outputLabel rendered="true" for="algorithm2">
+                            <h:outputText value="Algorithm:" />
+                        </h:outputLabel>
+                        <h:selectOneMenu id="isAdmin" value="#{userBean.isAdmin}">
+                            <f:selectItem itemLabel="y"   itemValue="y" />
+                            <f:selectItem itemLabel="n"   itemValue="n" />
+                           
+                        </h:selectOneMenu>
+                    </p>
+                    <p>
+                        <h:commandButton value="Submit" rendered="true" action="#{userBean.addUser}" /></p>
+
+                </h:form>
+            </c:if> <!-- if user is not logged in -->
+
+            <!-- ui:include src="/WEB-INF/html/footer.html" / -->
+            <hr />
+            <p>Thank you for using the Contact Web App.</p>
+
+        </div> <!-- end div Content -->
+
+        <br /><br /><br /><br /><br />
+        <hr />
+        <br />
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <br /><br /><br />
+
+        </f:view>
+    </h:body>
+    
+</html>
+
+
+
+

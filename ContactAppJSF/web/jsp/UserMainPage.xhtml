@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <h:head>
+        <title>User Main Page</title>
+        <style type="text/css" media="all">@import "#{request.contextPath}/html/layout1.css";</style>
+    </h:head>
+
+    <h:body>
+        <f:view>
+          
+        <div id="Logo"></div>
+
+        <div id="Header">
+            <a href="#{request.contextPath}/jsp/UserMainPage.faces" title="Contact Web App">Contact Web App</a>
+        </div>
+
+        <ui:insert name="headerfff" >
+            <ui:include src="/WEB-INF/Header.xhtml" />
+        </ui:insert>
+
+        <div id="Content">
+
+            <h1>Contact App Admin Main Page</h1>
+
+            <c:if test="${userBean.loggedIn != 1}">
+                <p>You are not logged in. Please go to the <a href="#{request.contextPath}/jsp/UserLoginPage.faces">login page</a> to login or 
+                    to the <a href="#{request.contextPath}/jsp/UserSignupPage.faces">sign up page</a> to sign up.</p>
+            </c:if> <!-- if user is not logged in -->
+
+            <c:if test="${userBean.loggedIn == 1}">
+
+                <p>It's sooo nice to see that <h:outputText id="mainPage1" value="#{userBean.userName}" /> decided to come to church this week.</p>
+
+                <p>Your email address: <h:outputText id="uEmailAddress1" value="#{userBean.emailAddress}" /></p>
+                
+                
+                <h:form>
+                    <p>To list the contacts in the database, click <h:commandLink value="here" action="#{userBean.getListOfContacts}" />
+                    </p>
+                </h:form>
+
+                <h:form>
+                    <p>To add a contact, click <a href="#{request.contextPath}/jsp/AddContactForm.faces">Here</a> <br />
+                    </p>
+                </h:form>
+
+                <p>
+                    To search, click <a href="#{request.contextPath}/jsp/SearchPage.faces">here</a>
+                </p>
+
+                <p>To add a user, click <a href="#{request.contextPath}/jsp/addUserForm.faces">here</a>.</p>
+
+                <p>To drop a user, click <a href="#{request.contextPath}/jsp/dropUserForm.faces">here</a>.</p>
+
+            </c:if> <!-- if user is logged in  -->
+
+            <!-- ui:include src="/WEB-INF/html/footer.html" / -->
+            <hr />
+            <p>Thank you for using the Contact Web App.</p>
+
+        </div> <!-- end div Content -->
+
+        <br /><br /><br /><br /><br />
+        <hr />
+        <br />
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+        <br /><br /><br />
+
+        </f:view>
+
+    </h:body>
+    
+</html>
+
+
