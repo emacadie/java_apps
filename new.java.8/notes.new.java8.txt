@@ -1,0 +1,63 @@
+
+
+Java 8 api: https://docs.oracle.com/javase/8/docs/api/
+
+Lambda expressions make code easier to read. A better way to write anonymous classes
+
+gradle compileJava
+gradle build
+gradle runJava -PmainClass=info.shelfunit.funcjava.ch02.ChapterTwoRunner -PmainArgs="pickName N"
+
+gradle runJava -PmainClass=com.accenture.attrib.AttribViewer
+
+gradle runJava -PmainClass=info.shelfunit.lambdas.LambdaRunner
+gradle runJava -PmainClass=info.shelfunit.lambdas.StreamRunner  -PmainArgs=workLiveCodingExercise
+
+gradle runJava -PmainClass=info.shelfunit.lambdas.StreamRunner  -PmainArgs="workLiveCodingExercise C:/EKM/gradle.projects/lambdas/persons.list.txt"
+
+gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithInstant
+gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithNewDates
+gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithZones
+gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=formatDates
+gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithStrings
+gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs="workWithIO C:/EKM/gradle.projects/lambdas/persons.list.txt"
+gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithDirectories
+gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithCollections
+gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithComparators
+gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=compareNumbers
+gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=compareMaps
+
+gradle runJava -PmainClass=info.shelfunit.gui.FirstJFXApp 
+
+Lambda is a functional interface (interface with one abstract method)
+Some in JDK already did that: Comparator, Runnable, FileFilter
+(You can declare something from java.lang.Object and it won't count as your method in the functional interface)
+Lambdas can be variables. So are they like first-class functions?
+Not quite an object without an identity. You cannot call java.lang.Object methods on them.
+
+Functional categories of java.util.function:
+Supplier
+Consumer/BiConsumer
+Predicate/BiPredicate: takes object, returns a boolean
+Function/BiFunction/UnaryOperator: takes function, returns an object
+
+You can omit the parameter types for lambdas
+I am not too sure I like the method reference syntax.
+How can we use this to process data?
+Where are our objects? Many times in a Collection, like List, Map, Set
+
+Iterable has forEach, which is a default implementation. This way anyone else implementing this interface won't have to refactor their code.
+In Java 8, static methods are allowed in interfaces.
+
+javafx:
+Stage can be top-level window of app
+Stage can be rectangular area in an applet
+Stage can be full screen itself
+Stage must have a Scene, Scene must be inside a Stage
+Scene holds graphical components: shapes, textboxes, buttons, layouts, etc
+We can add Label to Scene, Scene added to Stage, launch to Stage
+Layout can hold several components
+You can design GUI in XML. I think I will skip this.
+
+
+

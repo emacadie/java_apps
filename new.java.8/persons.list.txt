@@ -1,0 +1,7 @@
+Washington 20
+Adams 25
+Jefferson 23
+Madison 23
+Monroe 22
+Jackson 24
+VanBuren 25
