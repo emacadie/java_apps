@@ -1,0 +1,228 @@
+Gradle
+
+set JAVA_HOME=C:\Oracle\Middleware\jdk-9.0.4
+set GRADLE_HOME=C:\EKM\gradle-6.2.2-all\gradle-6.2.2
+cd C:\EKM\gradle.projects\new.java.8\
+
+Build by convention
+has a Groovy DSL
+Supports Ivy and Maven dependencies
+Supports multi-project builds
+Can do JavaScript, C++
+Highly customizable
+Has a declarative build language, expresses intent, not how
+Highly maintainable
+
+Ant: first Java build tool, replaced make
+XML, hard to read, hard to maintain
+Lack of conventions, got to define things in every single file, lots of properties
+Maven: advantages over Ant: many conventions
+Supports dependency management
+Highly extensible
+Like Ant, uses XML, can be hard to read
+
+This uses 2.6, which is out of date.
+
+Build file contains tasks (mostly), plugins, dependencies
+
+to list tasks: "gradle tasks"
+
+wrapper task: You can specify a version of gradle
+Run that task, and you can download a specific version of gradle and use that. I think you have to use "gradlew"
+https://medium.com/@bherbst/understanding-the-gradle-wrapper-a62f35662ab7
+Then you have to commit the jar file to source control.
+
+What is a task:
+https://docs.gradle.org/current/javadoc/org/gradle/api/Task.html
+code that gradle executes
+tasks has lifecycle: 3 phases: initialization, configuration, execution
+properties: group, description, custom ones you set
+tasks have actions: first action, and last action, so you can have code that executes at a particular time
+dependencies: tasks may depend on other tasks
+
+project is highest object
+project.task( "Task1" )
+Or you can do:
+task( "Task2" )
+or
+task "Task3"
+or
+task Task4
+Can a task have a space?
+Tasks have a description property
+Task4.description = "This is task 4"
+That will show up when you run "gradle tasks"
+All tasks have a method "doLast"
+Pass a closure
+Task4.doLast{
+	println "This is task4"
+}
+Antoher way to call doLast, use "<<"
+Task3 << { println "This is task 3" }
+Or
+task Task5 << { println "This is task 5" }
+// then let's add ANOTHER closure
+Task5 << { println "Another line" } // it appends this to the action
+
+task Task6 {
+	description "This is task 6"
+	doLast { 
+		println "This is task 6 in doLast"
+	}
+}
+
+Build phases:
+1. Initialization - used to configure multi-project builds
+2. Configuration - Executes code in the task that is not the action (like description)
+3. Execution phase - the actions are executed. doFirst, doLast
+
+You can add "doFirst" multiple times, just like doLast. I do not know if there is an equivalent to "<<"
+
+Tasks can call the "dependsOn" method
+Task6.despendsOn Task5 // notice no parens
+Task5.doLast will run before Task6.doFirst
+You can have multiple dependencies:
+Task6.dependsOn Task5
+Task6.dependsOn Task3
+Or you could do:
+task Task6 {
+	description "This is task 6"
+	dependsOn Task5
+	doLast { 
+		println "This is task 6 in doLast"
+	}
+}
+
+use "def" to add local variables
+def projectVersion = "2.0"
+You could do this in tasks:
+doLast { println "Version is $projectVersion" }
+You can put a variable inside a task, or doLast
+What about shared about across build file?
+project.ext.projectVersion
+Then you would could this: doLast { println "Version is $project.ext.projectVersion" }
+
+
+Task Dependencies
+
+%GRADLE_HOME%\bin\gradle --build-file
+Now it's saying 
+"A problem occurred evaluating root project 'gradle.projects'.
+> Could not find method leftShift() for arguments [depend_q2nh7wbqse1mabg24lr9zegd$_run_closure1@51c10b49] on task ':taskA' of type org.gradle.api.DefaultTask."
+So I guess no more "<<"
+Just closures
+Damn you, Kotlin
+
+Other ways to control dependencies
+mustRunAfter: if two tasks run, one must happen after the other
+shouldRunAfter: same, just should. This ignores circular dependencies. mustRunAfter might fail if there is a circular dependency
+finalizedBy: inverted dependency
+These only work if tasks are linked by dependsOn
+Use them without dependsOn, nothing happens
+
+Typed tasks
+Let's make a task that we can re-use
+https://docs.gradle.org/current/dsl/index.html has list of tasks, built in tasks
+
+Copy task has "expand" which can replace text (why not call it "replace" or "substitute"?)
+This can change config files for different environments
+
+Java plugin
+Adds a lot of tasks: build, clean, javadoc
+Gradle supports Maven layout
+You can change it with SourceSets if you have a different convention
+sourceSets {
+	main {
+		java {
+			srcDir 'src/java' // instead of src/main/java
+		}
+		resources {
+			srcDir 'src/resources'
+		}
+	}
+}
+
+Gradle daemon
+gradle --daemon clean
+You can set this in your home directory: gradle.properties
+org.gradle.daemon=true
+
+multi-project build:
+add top level settings.gradle listing all the projects
+add top level build.gradle
+settings.gradle:
+include 'Repository', 'JacketService'
+That's it
+build.gradle:
+specify commonalities
+also: project dependencies
+allProjects {
+	apply plugin: 'java' 
+}
+project( ':Repository' )
+project( ':JacketService' ) {
+	dependencies {
+		compile project( ':Repository' )
+	}
+}
+Done w/multi-project build.gradle
+
+Dependencies:
+We can depend on other projects, local jars, external libraries (local, repos), internal libraries
+Java plugin introduces 4 configurations: compile, runtime, testCompile, testRuntime
+Gradle can handle transitive dependencies
+We can list dependencies:
+gradle -q dependencies
+gradle -q dependencies -configuration compile
+
+gradle caches dependencies: maven and ivy in different places
+you can pass --refresh-dependencies
+Runs a SHA1 check
+You can delete the cache, and it will get everything
+/$HOME/.gradle directory
+
+Testing:
+Integral to Java plugin
+Tests run as part of the build
+default location: src/test/java
+Output to build/classes/test
+Reports: build/reports/test
+
+Filtering tests: you may only want to run some tests (single, package)
+See https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/testing/TestFilter.html for examples
+It looks like you have to do it in the build.gradle
+I guess you could comment some of them out
+If you make a testing task, dependsOn testClasses
+From command line:
+gradle --tests *shouldDoSomething
+
+Adding integration tests:
+gradle-testsets-plugin
+https://github.com/unbroken-dome/gradle-testsets-plugin
+README has info on how to use it
+add plugin, add a testSet
+
+Gradle Wrapper
+Provides a specific version of gradle to build/run a project
+Should lead to consistent builds
+Running it will make:
+gradlew.bat file
+gradlew file
+gradle/wrapper dir
+You will have to use gradlew or gradlew.bat going forward
+wrapper task is always available
+Or we can add one
+task myWrapper( type: Wrapper ) {
+	gradleVersion = '3.4'
+}
+Can we specify a higher version?
+If your version is not installed, gradle will download it
+It will go in $HOME/.gradle
+
+wrapper makes it easy to use a build server
+why use a build server?
+continuous integration - build code every time
+At least nightly builds
+TeamCity lets us use gradle wrapper
+
+

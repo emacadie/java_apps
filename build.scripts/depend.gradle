@@ -1,0 +1,118 @@
+// %GRADLE_HOME%\bin\gradle --build-file depend.gradle
+
+task taskA { 
+	println "This is taskA" 
+	dependsOn 'taskB'
+	dependsOn 'taskC', 'taskD'
+	dependsOn 'taskE' // E runs once, since C and D depends on E
+	dependsOn 'taskG'
+	doLast { 
+		println "This is doLast in taskA"
+	}
+}
+
+/* 
+mustRunAfter changed order from 
+This is doLast in taskB
+This is doLast in taskE
+This is doLast in taskC
+This is doLast in taskD
+This is doLast in taskG
+This is doLast in taskA
+to
+This is doLast in taskE
+This is doLast in taskC
+This is doLast in taskB
+This is doLast in taskD
+This is doLast in taskG
+This is doLast in taskA
+*/
+task taskB { 
+	println "This is taskB"
+	mustRunAfter 'taskC'
+	// could also do: mustRunAfter 'taskC', 'taskD'
+	// mustRunAfter 'taskB' // failure
+	shouldRunAfter 'taskB' // this works
+	doLast { 
+		println "This is doLast in taskB"
+	}
+}
+
+task taskC { 
+	println "This is taskC" 
+	dependsOn 'taskE'
+	doLast { 
+		println "This is doLast in taskC"
+	}
+}
+
+task taskD { 
+	println "This is taskD"
+	dependsOn 'taskE'
+	doLast { 
+		println "This is doLast in taskD"
+	}
+}
+
+task taskE {
+	println "This is taskE" 
+	finalizedBy 'taskF' // inverse hierarchy, sort of like "shouldRunBefore" (so why not call it that?)
+	doLast { 
+		println "This is doLast in taskE"
+	}
+}
+
+task taskF { 
+	println "This is taskF" 
+	doLast { 
+		println "This is doLast in taskF"
+	}
+}
+
+task taskG { 
+	println "This is taskG" 
+	doLast { 
+		println "This is doLast in taskG"
+	}
+}
+
+task taskH { 
+	println "This is taskH" 
+	doLast { 
+		println "This is doLast in taskH"
+	}
+}
+/*
+Gotta do this for the mustRunAfter:
+%GRADLE_HOME%\bin\gradle --build-file depend.gradle -q taskI taskH
+Because there is no dependsOn 
+ */
+task taskI { 
+	println "This is taskI" 
+	mustRunAfter 'taskH'
+	doLast { 
+		println "This is doLast in taskI"
+	}
+}
+
+
+// taskA.dependsOn taskB
+// taskA.dependsOn taskC, taskD
+// %GRADLE_HOME%\bin\gradle --build-file depend.gradle copyImages
+task copyImages ( type: Copy ) {
+	exclude 'NON_MED_NOA*' // we can use regex
+	from 'C:/Local_Rules_Zips/Local_Rules_Logs/2020-05-11'
+	into 'C:/Local_Rules_Zips/Local_Rules_Logs/dest'
+}
+
+// we could include this in multiple copy tasks
+def myContentSpec = copySpec {
+	// exclude 'NON_MED_NOA*'
+	exclude { it.file.name.startsWith( 'NON_MED_NOA' ) }
+	from 'C:/Local_Rules_Zips/Local_Rules_Logs/2020-05-11'
+}
+// // %GRADLE_HOME%\bin\gradle --build-file depend.gradle copyImages2
+task copyImages2 ( type: Copy ) {
+	with myContentSpec
+	into 'C:/Local_Rules_Zips/Local_Rules_Logs/dest'
+}

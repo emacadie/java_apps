@@ -1,0 +1,49 @@
+// another build.gradle
+// local project with different layout and local jars
+
+apply plugin: 'java'
+apply plugin: 'application'
+
+// repos: Ivy is deprecated
+repositories {
+	mavenCentral()
+	jcenter() // https
+	mavenLocal() // your machine
+	maven {
+		url "http://repo.mycompany.com/maven2"
+	}
+}
+
+sourceSets {
+	main{
+		java {
+			srcDir: 'src'
+		}
+	}
+	test{
+		java {
+			srcDir: 'test/src'
+		}
+	}
+}
+
+
+dependencies {
+	// compile files ( 'lib/log4j-1.2.8.jar', 'lib/junit-3.8.1.jar' ) // local dependency
+	// group, name, version
+	compile group: 'log4j', name: 'log4j', version: '1.2.17'
+	compile 'junit:junit:4.12'
+}
+
+task wrapper ( type:Wrapper )
+
+// passing args
+// Use -P on command line to set a property for gradle, which sends it to application
+// -Pargs="-f build.gradle -d something.else up=down"
+run {
+	if ( project.hasProperty( 'args' ) ) {
+		args project.args.split( '\\s' )
+	}
+}
+
+mainClassName = 'info.shelfunit.whatever.Runnner'
