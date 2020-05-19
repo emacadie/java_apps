@@ -13,14 +13,14 @@ gradle runJava -PmainClass=com.accenture.attrib.AttribViewer
 gradle runJava -PmainClass=info.shelfunit.lambdas.LambdaRunner
 gradle runJava -PmainClass=info.shelfunit.lambdas.StreamRunner  -PmainArgs=workLiveCodingExercise
 
-gradle runJava -PmainClass=info.shelfunit.lambdas.StreamRunner  -PmainArgs="workLiveCodingExercise C:/EKM/gradle.projects/lambdas/persons.list.txt"
+gradle runJava -PmainClass=info.shelfunit.lambdas.StreamRunner  -PmainArgs="workLiveCodingExercise /home/ericm/github/java_apps/new.java8/persons.list.txt"
 
 gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithInstant
 gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithNewDates
 gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithZones
 gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=formatDates
 gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithStrings
-gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs="workWithIO C:/EKM/gradle.projects/lambdas/persons.list.txt"
+gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs="workWithIO /home/ericm/github/java_apps/new.java8/persons.list.txt"
 gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithDirectories
 gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithCollections
 gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithComparators

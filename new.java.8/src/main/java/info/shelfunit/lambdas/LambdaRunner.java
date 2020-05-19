@@ -23,7 +23,7 @@ public class LambdaRunner {
                 return file.getName().endsWith( ".java" );
             }
         };
-        File dir = new File( "c:/EKM/KEES/Defects/Done/86842/files/" );
+        File dir = new File( "/home/ericm/github/" );
         File[] javaFiles = dir.listFiles( fileFilter );
         System.out.println( "javaFiles.length with anonymous filter: " + javaFiles.length );
     }
@@ -32,7 +32,7 @@ public class LambdaRunner {
         System.out.println( "-----\nstarting method " + className + Thread.currentThread().getStackTrace()[ 1 ].getMethodName() );
         // lambda - can you use multiple lines?
         FileFilter filter = ( File file ) -> file.getName().endsWith( ".java" );
-        File dir = new File( "c:/EKM/KEES/Defects/Done/86842/files/" );
+        File dir = new File( "/home/ericm/github/" );
         File[] javaFiles = dir.listFiles( filter );
         System.out.println( "javaFiles.length with lambda filter: " + javaFiles.length );
         System.out.println( "Lambda with more than one line of code coming up:" );

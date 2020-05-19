@@ -1,0 +1,20 @@
+
+
+Java 8 api: https://docs.oracle.com/javase/8/docs/api/
+
+gradle compileJava
+gradle build
+
+gradle runJava -PmainClass=info.shelfunit.morelambda.FirstRunner -PmainArgs="doStuffInlineAndLambda"
+gradle runJava -PmainClass=info.shelfunit.funcjava.ch02.ChapterTwoRunner -PmainArgs="pickName N"
+
+Comparator: object that can compare two objects
+Only one method: int compare, can be done inline
+Can pass as an arg to Arrays.compare
+Runnable can be passed to E
+Anonymous classes
+Passed code as a parameter
+
+Lambda: you cannot specify the return value
+You can omit the types of the parameters
+But I think it is better to keep them
