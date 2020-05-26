@@ -16,14 +16,14 @@ project.ext.mainArgsExt="implementComparator"
 
 allprojects {
   dependencies {
-    testCompile 'junit:junit:4.10'
+      testImplementation 'junit:junit:4.10'
 
-    compile 'log4j:log4j:1.2.17'
+      implementation 'log4j:log4j:1.2.17'
 
-    // logging
-    compile 'org.slf4j:slf4j-api:1.7.+'
+        // logging
+      implementation 'org.slf4j:slf4j-api:1.7.+'
 
-	compile fileTree(dir: 'lib', include: ['*.jar'])
+      implementation fileTree(dir: 'lib', include: ['*.jar'])
   }
 
   tasks.withType( JavaCompile ) { JavaCompile compile ->

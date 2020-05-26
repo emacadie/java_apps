@@ -6,6 +6,7 @@ gradle compileJava
 gradle build
 
 gradle runJava -PmainClass=info.shelfunit.morelambda.FirstRunner -PmainArgs="doStuffInlineAndLambda"
+gradle runJava -PmainClass=info.shelfunit.morelambda.FirstRunner -PmainArgs="comparePerson"
 gradle runJava -PmainClass=info.shelfunit.funcjava.ch02.ChapterTwoRunner -PmainArgs="pickName N"
 
 Comparator: object that can compare two objects
@@ -18,3 +19,6 @@ Passed code as a parameter
 Lambda: you cannot specify the return value
 You can omit the types of the parameters
 But I think it is better to keep them
+If one line, no need for a return statement
+Lambda: new way of making anonymous classes: sending code to a method
+

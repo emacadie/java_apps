@@ -180,7 +180,7 @@ public class StreamRunner {
         // reduction of empty stream is identity element
         // one element: stream is that element with identity element
         Stream< Integer > intStream = Stream.of( 1 ); // Arrays.asList( 2 ).stream();
-        BinaryOperator< Integer > sumOp = (i1, i2 ) -> ( i1 + i2 );
+        BinaryOperator< Integer > sumOp = ( i1, i2 ) -> ( i1 + i2 );
         Integer id = 0; // identity element for the sum
         int red = intStream.reduce( id, sumOp );
         System.out.println( "Result of reduce on a stream with one element: " + red );
