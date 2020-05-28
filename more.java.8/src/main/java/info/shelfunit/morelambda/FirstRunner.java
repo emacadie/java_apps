@@ -61,7 +61,9 @@ public class FirstRunner {
         Comparator< Person > cmpMRAge       = Comparator.comparing( Person::getAge );
         Comparator< Person > cmpMRFirstName = Comparator.comparing( Person::getFirstName );
         Comparator< Person > cmpMRLastName  = Comparator.comparing( Person::getLastName );
-
+        // chaining comparators
+        Comparator< Person > compAgeThenLastName   = cmpLAge.     thenComparing( cmpLLastName );
+        Comparator< Person > compLastThenFirstName = cmpLLastName.thenComparing( cmpLFirstName );
         List< Person > personList = Arrays.asList(
                 new Person( "George", "Washington", 57 ),
                 new Person( "James", "Madison", 57 ),
@@ -80,22 +82,22 @@ public class FirstRunner {
                     ", " + cmpLastName.compare( currPers, nextPers )
                 );
                 System.out.println( "Comparing with function comparators (age, fName, lName): " +
-                        cmpFAge.compare( currPers, nextPers ) + ", " + cmpFFirstName.compare( currPers, nextPers ) +
-                        ", " + cmpFLastName.compare( currPers, nextPers )
+                    cmpFAge.compare( currPers, nextPers ) + ", " + cmpFFirstName.compare( currPers, nextPers ) +
+                    ", " + cmpFLastName.compare( currPers, nextPers )
                 );
-
                 System.out.println( "Comparing with lambda comparators (age, fName, lName): " +
-                        cmpLAge.compare( currPers, nextPers ) + ", " + cmpLFirstName.compare( currPers, nextPers ) +
-                        ", " + cmpLLastName.compare( currPers, nextPers )
+                    cmpLAge.compare( currPers, nextPers ) + ", " + cmpLFirstName.compare( currPers, nextPers ) +
+                    ", " + cmpLLastName.compare( currPers, nextPers )
                 );
-
                 System.out.println( "Comparing with method reference comparators (age, fName, lName): " +
-                        cmpMRAge.compare( currPers, nextPers ) + ", " + cmpMRFirstName.compare( currPers, nextPers ) +
-                        ", " + cmpMRLastName.compare( currPers, nextPers )
+                    cmpMRAge.compare( currPers, nextPers ) + ", " + cmpMRFirstName.compare( currPers, nextPers ) +
+                    ", " + cmpMRLastName.compare( currPers, nextPers )
                 );
+                System.out.println( "Using compAgeThenLastName: " + compAgeThenLastName.compare( currPers, nextPers ) +
+                    ", using compLastThenFirstName: " + compLastThenFirstName.compare( currPers, nextPers ) );
 
-            }
-        }
+            } // for ( int nextP = ( pCount + 1 ); nextP < personList.size(); nextP++ )
+        } // for ( int pCount = 0; ( pCount < personList.size() -1 ); pCount++ )
     } // comparePerson
 
     public static void main( String args[] ) {

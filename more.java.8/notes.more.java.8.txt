@@ -7,6 +7,8 @@ gradle build
 
 gradle runJava -PmainClass=info.shelfunit.morelambda.FirstRunner -PmainArgs="doStuffInlineAndLambda"
 gradle runJava -PmainClass=info.shelfunit.morelambda.FirstRunner -PmainArgs="comparePerson"
+gradle runJava -PmainClass=info.shelfunit.morelambda.DataProcessor  -PmainArgs="workWithPredicates"
+
 gradle runJava -PmainClass=info.shelfunit.funcjava.ch02.ChapterTwoRunner -PmainArgs="pickName N"
 
 Comparator: object that can compare two objects
@@ -21,4 +23,27 @@ You can omit the types of the parameters
 But I think it is better to keep them
 If one line, no need for a return statement
 Lambda: new way of making anonymous classes: sending code to a method
+
+Lambda expression: instance of functional interface
+functional interface: interface w/only one method
+only one abstract method
+default methods do not count
+static methods do not count
+methods from Object class do not count
+
+You could put @FunctionalInterface annotation on them if you want
+(it's in java.lang)
+But it is optional
+From API page: "Note that instances of functional interfaces can be created with lambda expressions, method references, or constructor references. "
+Maybe I will just stick with lambda expressions.
+Lambda expressions essentially implement functional interfaces.
+Although some lambda expressions are on methods that are not functional interfaces (like Streams)
+
+java.util.function package
+4 basic categories
+1. Consumers
+2. Suppliers
+3. Functions
+4. Predicates
+
 
