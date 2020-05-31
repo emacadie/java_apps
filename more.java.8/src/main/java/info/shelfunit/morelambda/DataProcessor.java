@@ -34,6 +34,44 @@ public class DataProcessor {
         System.out.println( "calling getClass on pJDK8: " + pJDK8.getClass() );
     } // workWithPredicates
 
+    public void workWithFunctionalInterfaces() {
+        System.out.println( "-----\nstarting method " + this.getClass().getName() + Thread.currentThread().getStackTrace()[ 1 ].getMethodName() );
+        Predicate< String > p1 = s -> s.length() < 20;
+        Predicate< String > p2 = s -> s.length() > 5;
+        String firstString  = "This is the first string";
+        String secondString = "second string";
+        String shortString = "java";
+        System.out.println( "here is first string: "  + firstString  + "; testing with predicate 1: " + p1.test( firstString ) );
+        System.out.println( "here is second string: " + secondString + "; testing with predicate 1: " + p1.test( secondString ) );
+        System.out.println( "here is short string: "  + shortString  + "; testing with predicate 1: " + p1.test( shortString ) );
+
+        System.out.println( "here is first string: "  + firstString  + "; testing with predicate 2: " + p2.test( firstString ) );
+        System.out.println( "here is second string: " + secondString + "; testing with predicate 2: " + p2.test( secondString ) );
+        System.out.println( "here is short string: "  + shortString  + "; testing with predicate 2: " + p2.test( shortString ) );
+
+        // chain them
+        Predicate< String > p3 = p1.and( p2 );
+
+        System.out.println( "here is first string: "  + firstString  + "; testing with predicate 3: " + p3.test( firstString ) );
+        System.out.println( "here is second string: " + secondString + "; testing with predicate 3: " + p3.test( secondString ) );
+        System.out.println( "here is short string: "  + shortString  + "; testing with predicate 3: " + p3.test( shortString ) );
+        Predicate< String > p4 = p1.or( p2 );
+        System.out.println( "here is first string: "  + firstString  + "; testing with predicate 4: " + p4.test( firstString ) );
+        System.out.println( "here is second string: " + secondString + "; testing with predicate 4: " + p4.test( secondString ) );
+        System.out.println( "here is short string: "  + shortString  + "; testing with predicate 4: " + p4.test( shortString ) );
+
+        Predicate< String > p5 = Predicate.isEqual( "java" ); // seems like more work
+        System.out.println( "here is first string: "  + firstString  + "; testing with predicate 5: " + p5.test( firstString ) );
+        System.out.println( "here is second string: " + secondString + "; testing with predicate 5: " + p5.test( secondString ) );
+        System.out.println( "here is short string: "  + shortString  + "; testing with predicate 5: " + p5.test( shortString ) );
+
+        Predicate< Integer > p6 = Predicate.isEqual( 1 );
+        // try w/primitive
+        System.out.println( "p6 w/int = 1: " + p6.test( 1 ) );
+        int i = 1;
+        System.out.println( "p6 w/int i = 1: " + p6.test( i ) );
+    } // workWithFunctionalInterfaces
+
     public static void main( String args[] ) {
 
         DataProcessor dp = new DataProcessor();
@@ -42,8 +80,9 @@ public class DataProcessor {
             case "workWithPredicates" :
                 dp.workWithPredicates();
                 break;
-            case "comparePerson" :
-                // fr.comparePerson();
+            case "workWithFunctionalInterfaces" :
+                dp.workWithFunctionalInterfaces();
+
                 break;
             default:
                 System.out.println( "No method named " + methodToRun );

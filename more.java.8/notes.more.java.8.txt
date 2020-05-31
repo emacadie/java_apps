@@ -7,7 +7,8 @@ gradle build
 
 gradle runJava -PmainClass=info.shelfunit.morelambda.FirstRunner -PmainArgs="doStuffInlineAndLambda"
 gradle runJava -PmainClass=info.shelfunit.morelambda.FirstRunner -PmainArgs="comparePerson"
-gradle runJava -PmainClass=info.shelfunit.morelambda.DataProcessor  -PmainArgs="workWithPredicates"
+gradle runJava -PmainClass=info.shelfunit.morelambda.DataProcessor -PmainArgs="workWithPredicates"
+gradle runJava -PmainClass=info.shelfunit.morelambda.DataProcessor -PmainArgs="workWithFunctionalInterfaces"
 
 gradle runJava -PmainClass=info.shelfunit.funcjava.ch02.ChapterTwoRunner -PmainArgs="pickName N"
 
@@ -41,9 +42,30 @@ Although some lambda expressions are on methods that are not functional interfac
 
 java.util.function package
 4 basic categories
-1. Consumers
-2. Suppliers
+1. Consumers - consumes an object, does not return anything (usually have "accept" method and "andThen" method)
+BiConsumers take two objects instead of one
+BiConsumer,  Consumer, DoubleConsumer, IntConsumer, LongConsumer, ObjDoubleConsumer, ObjIntConsumer, ObjLongConsumer
+2. Suppliers - supplier provides an object, takes no parameter (sort of like a Factory w/out args?)
+why not just call a constructor?
+https://www.geeksforgeeks.org/supplier-interface-in-java-with-examples/ gives example w/Random
+But it still seems that you could just call the underlying method
+Method: get() for Supplier, getAs$Type() for others
+BooleanSupplier, DoubleSupplier, IntSupplier, LongSupplier, Supplier
 3. Functions
-4. Predicates
+Function takes an object, returns object of another type (so it's like mapping)
+Methods in java.util.function.Function:
+andThen, apply, compose, identity
+Most of them just have apply or applyAs$Type
+BiFunction, DoubleFunction, DoubleToIntFunction, DoubleToLongFunction, Function, IntFunction, IntToDoubleFunction,
+IntToLongFunction, LongFunction, LongToDoubleFunction, LongToIntFunction, ToDoubleBiFunction, ToDoubleFunction,
+ToIntBiFunction, ToIntFunction, ToLongBiFunction, ToLongFunction
+I also think the interfaces ending in "Operator" fall under this category (extend Function, BiFunction):
+BinaryOperator, DoubleBinaryOperator, DoublePredicate, DoubleUnaryOperator, IntBinaryOperator, IntUnaryOperator,
+LongBinaryOperator, LongUnaryOperator, UnaryOperator
+4. Predicates - takes an object, returns a boolean (for filter)
+Methods: test, and, or, negate
+BiPredicate, IntPredicate, LongPredicate, Predicate
+
+Functional interfaces for primitive types: IntPredicate, IntFunction, etc, etc
 
 
