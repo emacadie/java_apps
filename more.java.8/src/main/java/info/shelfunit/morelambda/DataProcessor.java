@@ -72,6 +72,56 @@ public class DataProcessor {
         System.out.println( "p6 w/int i = 1: " + p6.test( i ) );
     } // workWithFunctionalInterfaces
 
+    public void workWithMyFunctionalInterfaces() {
+        System.out.println( "-----\nstarting method " + this.getClass().getName() + Thread.currentThread().getStackTrace()[ 1 ].getMethodName() );
+        MyPredicate< String > p1 = s -> s.length() < 20; // shorter than 20
+        MyPredicate< String > p2 = s -> s.length() > 5; // longer than 5
+        String firstString  = "This is the first string";
+        String secondString = "second string";
+        String shortString = "java";
+        System.out.println( "here is first string: "  + firstString  + "; testing with predicate 1: " + p1.test( firstString ) );
+        System.out.println( "here is second string: " + secondString + "; testing with predicate 1: " + p1.test( secondString ) );
+        System.out.println( "here is short string: "  + shortString  + "; testing with predicate 1: " + p1.test( shortString ) );
+
+        System.out.println( "here is first string: "  + firstString  + "; testing with predicate 2: " + p2.test( firstString ) );
+        System.out.println( "here is second string: " + secondString + "; testing with predicate 2: " + p2.test( secondString ) );
+        System.out.println( "here is short string: "  + shortString  + "; testing with predicate 2: " + p2.test( shortString ) );
+
+        // chain them
+        MyPredicate< String > p3 = p1.and( p2 );
+
+        System.out.println( "here is first string: "  + firstString  + "; testing with predicate 3: " + p3.test( firstString ) );
+        System.out.println( "here is second string: " + secondString + "; testing with predicate 3: " + p3.test( secondString ) );
+        System.out.println( "here is short string: "  + shortString  + "; testing with predicate 3: " + p3.test( shortString ) );
+        MyPredicate< String > p4 = p1.or( p2 );
+        System.out.println( "here is first string: "  + firstString  + "; testing with predicate 4: " + p4.test( firstString ) );
+        System.out.println( "here is second string: " + secondString + "; testing with predicate 4: " + p4.test( secondString ) );
+        System.out.println( "here is short string: "  + shortString  + "; testing with predicate 4: " + p4.test( shortString ) );
+
+        MyPredicate< String > p5 = MyPredicate.isEqual( "java" ); // seems like more work
+        System.out.println( "here is first string: "  + firstString  + "; testing with predicate 5: " + p5.test( firstString ) );
+        System.out.println( "here is second string: " + secondString + "; testing with predicate 5: " + p5.test( secondString ) );
+        System.out.println( "here is short string: "  + shortString  + "; testing with predicate 5: " + p5.test( shortString ) );
+
+        MyPredicate< Integer > p6 = MyPredicate.isEqual( 1 );
+        // try w/primitive
+        System.out.println( "p6 w/int = 1: " + p6.test( 1 ) );
+        int i = 1;
+        System.out.println( "p6 w/int i = 1: " + p6.test( i ) );
+        MyPredicate< String > shorterThan5 = p2.negate();
+        System.out.println( "here is first string: "  + firstString  + "; testing with predicate 2: " +
+            p2.test( firstString ) + ", and testing with negate: " + shorterThan5.test( firstString )
+        );
+        System.out.println( "here is second string: " + secondString + "; testing with predicate 2: " +
+            p2.test( secondString ) + ", and testing with negate: " + shorterThan5.test( secondString )
+        );
+        System.out.println( "here is short string: "  + shortString  + "; testing with predicate 2: " +
+            p2.test( shortString ) + ", and testing with negate: " + shorterThan5.test( shortString )
+        );
+
+        System.out.println(  );
+    } // workWithMyFunctionalInterfaces
+
     public static void main( String args[] ) {
 
         DataProcessor dp = new DataProcessor();
@@ -82,7 +132,9 @@ public class DataProcessor {
                 break;
             case "workWithFunctionalInterfaces" :
                 dp.workWithFunctionalInterfaces();
-
+                break;
+            case "workWithMyFunctionalInterfaces" :
+                dp.workWithMyFunctionalInterfaces();
                 break;
             default:
                 System.out.println( "No method named " + methodToRun );

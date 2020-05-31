@@ -9,6 +9,7 @@ gradle runJava -PmainClass=info.shelfunit.morelambda.FirstRunner -PmainArgs="doS
 gradle runJava -PmainClass=info.shelfunit.morelambda.FirstRunner -PmainArgs="comparePerson"
 gradle runJava -PmainClass=info.shelfunit.morelambda.DataProcessor -PmainArgs="workWithPredicates"
 gradle runJava -PmainClass=info.shelfunit.morelambda.DataProcessor -PmainArgs="workWithFunctionalInterfaces"
+gradle runJava -PmainClass=info.shelfunit.morelambda.DataProcessor -PmainArgs="workWithMyFunctionalInterfaces"
 
 gradle runJava -PmainClass=info.shelfunit.funcjava.ch02.ChapterTwoRunner -PmainArgs="pickName N"
 
