@@ -11,6 +11,10 @@ gradle runJava -PmainClass=info.shelfunit.morelambda.DataProcessor -PmainArgs="w
 gradle runJava -PmainClass=info.shelfunit.morelambda.DataProcessor -PmainArgs="workWithFunctionalInterfaces"
 gradle runJava -PmainClass=info.shelfunit.morelambda.DataProcessor -PmainArgs="workWithMyFunctionalInterfaces"
 
+gradle runJava -PmainClass=info.shelfunit.morelambda.LambdaCollectionProcessor -PmainArgs=workWithCollections
+gradle runJava -PmainClass=info.shelfunit.morelambda.LambdaCollectionProcessor -PmainArgs=workWithMaps
+computeWithMaps
+
 gradle runJava -PmainClass=info.shelfunit.funcjava.ch02.ChapterTwoRunner -PmainArgs="pickName N"
 
 Comparator: object that can compare two objects
@@ -69,4 +73,17 @@ BiPredicate, IntPredicate, LongPredicate, Predicate
 
 Functional interfaces for primitive types: IntPredicate, IntFunction, etc, etc
 
+Collection.removeIf filters and changes the list in-place.
+Unlike java.util.stream.Stream.filter or filter in Lisp family of languages or Groovy's findAll,
+Collection.removeIf does NOT return a new list or collection, but mutates a collection.
+So JDK 8 changes not all "functional"
+java.lang.Iterable new JDK8 methods: forEach, spliterator() (gotta look up Spliterator)
+API says Spliterators are for parallel use, but not thread-safe (then what's the point?)
+java.util.Collection: removeIf, spliterator, stream,  parallelStream
+java.util.List: replaceAll (like in-place map from Lisp), sort, spliterator
+java.util.Map: getOrDefault, forEach, replaceAll, putIfAbsent, remove( key, value ), replace,
+computeIfAbsent (adds if key absent, changes value if key present),
+computeIfPresent (replaces value if key present, removes if value in arg is null), compute, merge
+getOrDefault: if old "get" returns null, is it returning null because the key is not in the map,
+or because the key IS in the map and has a null value?
 

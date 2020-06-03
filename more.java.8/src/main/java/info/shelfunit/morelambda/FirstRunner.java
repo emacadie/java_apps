@@ -65,11 +65,11 @@ public class FirstRunner {
         Comparator< Person > compAgeThenLastName   = cmpLAge.     thenComparing( cmpLLastName );
         Comparator< Person > compLastThenFirstName = cmpLLastName.thenComparing( cmpLFirstName );
         List< Person > personList = Arrays.asList(
-                new Person( "George", "Washington", 57 ),
-                new Person( "James", "Madison", 57 ),
-                new Person( "James", "Monroe", 58 ),
-                new Person( "Andrew", "Johnson", 56 ),
-                new Person( "Lyndon", "Johnson", 55 )
+            new Person( "George", "Washington", 57 ),
+            new Person( "James", "Madison", 57 ),
+            new Person( "James", "Monroe", 58 ),
+            new Person( "Andrew", "Johnson", 56 ),
+            new Person( "Lyndon", "Johnson", 55 )
         );
         for ( int pCount = 0; ( pCount < personList.size() -1 ); pCount++ ) {
             Person currPers = personList.get( pCount );
