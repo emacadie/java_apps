@@ -16,7 +16,7 @@ public class DateTimeRunner {
             Instant int1 = Instant.now();
             System.out.println( "Here is int1: " + int1 );
             // sleep for 4 seconds
-            Thread.sleep(4000 );
+            Thread.sleep( 4000 );
             Instant int2 = Instant.now();
             System.out.println( "Here is int1 after four seconds: " + int1 );
             System.out.println( "Here is int2: " + int2 );
