@@ -174,7 +174,7 @@ public class StreamRunner {
         Stream< Integer > integerStream = integerList.stream();
         // first arg is identity of accumulator function, second arg is the function
         // I put the second arg in parens in this example. Everything after the comma is the second arg
-        Integer sum = integerStream.reduce( 0, ( age1, age2 ) -> ( age1 + age2 ) );
+        Integer sum = integerStream.reduce( 0, ( num1, num2 ) -> ( num1 + num2 ) );
         System.out.println( "integerList: " + integerList );
         System.out.println( "Sum using reduce: " + sum );
         // reduction of empty stream is identity element

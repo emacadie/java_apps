@@ -14,7 +14,9 @@ gradle runJava -PmainClass=info.shelfunit.morelambda.DataProcessor -PmainArgs="w
 gradle runJava -PmainClass=info.shelfunit.morelambda.LambdaCollectionProcessor -PmainArgs=workWithCollections
 gradle runJava -PmainClass=info.shelfunit.morelambda.LambdaCollectionProcessor -PmainArgs=workWithMaps
 gradle runJava -PmainClass=info.shelfunit.morelambda.LambdaCollectionProcessor -PmainArgs=computeWithMaps
-
+gradle runJava -PmainClass=info.shelfunit.morelambda.StreamProcessor -PmainArgs=startWithStreams
+gradle runJava -PmainClass=info.shelfunit.morelambda.StreamProcessor -PmainArgs=workWithReduce
+gradle runJava -PmainClass=info.shelfunit.morelambda.StreamProcessor -PmainArgs=doMoreWorkWithStreams
 
 gradle runJava -PmainClass=info.shelfunit.funcjava.ch02.ChapterTwoRunner -PmainArgs="pickName N"
 
@@ -87,4 +89,84 @@ computeIfAbsent (adds if key absent, changes value if key present),
 computeIfPresent (replaces value if key present, removes if value in arg is null), compute, merge
 getOrDefault: if old "get" returns null, is it returning null because the key is not in the map,
 or because the key IS in the map and has a null value?
+
+Map/filter/reduce
+Is taking the average really reduce? I say no, but not everyone agrees.
+average is an SQL aggregation
+reduce function must be associative (how is that different from commutative?)
+Red(a, Red(b,c)) = Red(Red(a,b), c)
+https://sciencing.com/associative-commutative-property-of-addition-multiplication-with-examples-13712459.html
+"The associative property states that you can re-group numbers and you will get the same answer
+and the commutative property states that you can move numbers around and still arrive at the same answer."
+So associative is grouping, or in Java: parens
+reduce can run in parallel, so always use associative operations for reduce
+Be careful doing reduce on lists w/one element: not all reduction operations have an identity element
+
+Doing this in Java 7 would be extremely inefficient.
+
+So Streams are lazy collections
+
+Streams are typed interface: Stream of Integers, Stream of Strings, String of Person
+Streams are way to implement the Big Three: map, filter, reduce
+Stream: does not hold data, pulls data from a source (like a collection) and processes it
+Stream will pull data, consume it, process its elements
+Stream should not modify the data it processes (non-JDK implementations might)
+Should be able to process in parallel
+So like Lisp Big Three, we get a copy at the end
+Source may be unbounded (might be infinite) (can also mean the number of elements of source is unknown)
+
+How to build stream: On java.util.Collection interface, there is a stream() method
+So List and Set have it (no built-in Tree in Java)
+But Map does not
+You can build an empty Stream: java.util.stream.Stream.empty() - not clear why you would do this
+java.util.stream.Stream.of() - could have one element, or group
+Must put the objects in explicitly; I don't think you can send a List to that method
+Stream.generate( Supplier<T> s ) - I will have to look this one up - one of 4 categories of java.util.function package
+Stream.iterate()  - takes a seed data element and a unary operator
+so each element after the first is based on the element before it
+java.util.concurrent.ThreadLocalRandom also returns some streams
+String.chars() builds a stream of characters in that string
+java.util.regex.Pattern.splitAsStream()
+java.nio.file.Files.lines() builds a stream with each line of a file as an element (autoclosable)
+Other methods in that class return streams
+
+StreamBuilder pattern:
+From Stream.builder(), you set the type
+Stream.Builder< Person > sb = Stream.builder()
+sb.add( a ).add( b ).add( c )
+I assume you could call add on each line, but since it returns a builder you can chain them
+accept() is void, so it's like add() but you cannot change
+then call builder.build() (no more adding after this)
+Stream can be used with forEach
+map() can change the type of Stream
+filter() does not change the type of Stream
+
+Stream methods come in three basic categories:
+intermediate operations
+stateful intermediate operations
+terminal operations
+Most intermediate operations return a Stream and must be followed by another intermediate operation
+or a terminal operation
+In general, terminal operations return void (like forEach) or an object (findFirst)
+If you want to use System.out.print to inspect the elements in Stream for debugging, use peek()
+peek() is intermediate
+If you have no terminal operation, nothing happens
+
+Simple reductions: matchers and short-cutters, finder, general reductions
+Associativity is assumed, but not enforced
+3 types of general reductions ("reduce" reductions)
+1. T reduce(T identity, BinaryOperator<T> accumulator)
+Provide identity for operation, and provide an operator which combines two elements of the stream
+2. Optional<T> reduce(BinaryOperator<T> accumulator)
+No identity provided, result goes in an Optional
+3. <U> U reduce(U identity, BiFunction<U,? super T,U> accumulator, BinaryOperator<U> combiner)
+Used in parallel operations
+Identity, accumulator, combiner
+From API:
+"Many reductions using this form can be represented more simply by an explicit combination of map and reduce operations.
+The accumulator function acts as a fused mapper and accumulator,
+which can sometimes be more efficient than separate mapping and reduction,
+such as when knowing the previously reduced value allows you to avoid some computation."
+
+
 

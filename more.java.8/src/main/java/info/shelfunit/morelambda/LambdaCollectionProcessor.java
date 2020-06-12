@@ -1,6 +1,11 @@
 package info.shelfunit.morelambda;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 public class LambdaCollectionProcessor {
 
@@ -13,7 +18,7 @@ public class LambdaCollectionProcessor {
             new Person( "Andrew", "Johnson", 56 ),
             new Person( "Lyndon", "Johnson", 55 )
         );
-        List< Person > personList = new ArrayList< Person >( );
+        List< Person > personList = new ArrayList< Person >( rootPersonList );
         System.out.println( "Using forEach on personList: " );
         personList.forEach( p -> System.out.println( "Here is person: " + p.toString() ) );
         personList.removeIf( p -> p.getAge() >= 57 );
@@ -122,7 +127,7 @@ public class LambdaCollectionProcessor {
 
     public static void main( String args[] ) {
 
-        LambdaCollectionProcessor  lcp = new LambdaCollectionProcessor ();
+        LambdaCollectionProcessor  lcp = new LambdaCollectionProcessor();
         String methodToRun = args[ 0 ];
         switch( methodToRun ) {
             case "workWithCollections" :
