@@ -1,0 +1,55 @@
+https://junit.org/junit5/docs/current/user-guide/
+https://junit.org/junit5/
+API: https://junit.org/junit5/docs/current/api/
+https://junit.org/junit5/docs/5.6.0/api/
+https://junit.org/junit5/docs/5.6.2/api/
+
+Tests should be easy to understand, easy to read and easy to modify
+I guess that eliminates mocking and stubbing
+
+Types of test:
+black box, white box: Determined by knowledge of internals of system
+This course focuses on unit test
+
+Tests should be automated, repeatable, fast
+To test databases: http://dbunit.sourceforge.net/
+Integration tests: Test how components work together (like web services, databases)
+
+Why are tests important?
+reduce debugging time
+serve as documentation (but what calls the code you're testing?)
+help to improve design
+
+JUnit 5 has three modules:
+JUnit Platform
+JUnit Jupiter
+JUnit Vintage
+
+JUnit5 architecture:
+one jar, not very flexible, tightly coupled
+lots of tools did reflection and looked at private variables
+now we have separation of concerns
+1. API to write tests
+2. Mechanism to discover and run tests
+3. API to run tests (for tools)
+decouple execution and definition
+preference for extension points
+
+JUnit Platform - API to launch tests (console, IDE, others) and to develop testing framework
+JUnit Jupiter - for writing tests and extensions, and platform to run Jupiter tests on platform
+JUnit Vintage (runs JUnit 3 & 4 tests)
+
+Test method phases:
+1. set up objects you need for test
+2. perform an action
+3. check if result was what you expect
+
+or phrase it this way:
+1. arrange
+2. act
+3. assert
+4. annihilation (put system back in state you found it) usually automatic for Java (garbage collection)
+
+
+
+
