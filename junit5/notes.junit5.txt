@@ -1,4 +1,5 @@
 https://junit.org/junit5/docs/current/user-guide/
+https://junit.org/junit5/docs/5.6.2/user-guide/
 https://junit.org/junit5/
 API: https://junit.org/junit5/docs/current/api/
 https://junit.org/junit5/docs/5.6.0/api/
@@ -49,6 +50,27 @@ or phrase it this way:
 2. act
 3. assert
 4. annihilation (put system back in state you found it) usually automatic for Java (garbage collection)
+
+lifecycle:
+Test fixture: creating objects for test
+transient fresh
+persistence fresh
+persistence shared
+annotations:
+In org.junit.jupiter.api I think
+@AfterEach @BeforeEach: once per method
+@AfterAll @BeforeAll: once per class
+
+by default: JUnit creates new instance of each test class before each test (seems inefficient, even if it is clean)
+seems inefficient
+You can change this to per class:
+@org.junit.jupiter.api.TestInstance(TestInstance.Lifecycle.PER_METHOD)
+@org.junit.jupiter.api.TestInstance(TestInstance.Lifecycle.PER_CLASS)
+You can also do this with JVM property -Djunit.jupiter.testinstance.lifecycle.default=per_method (or per_class)
+Can also be set in junit-platform.properties in root of classpath
+
+convention is to make a null variable to hold class
+and put constructor call in @BeforeEach setUp
 
 
 
