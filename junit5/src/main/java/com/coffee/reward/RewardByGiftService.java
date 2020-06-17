@@ -46,7 +46,12 @@ public class RewardByGiftService extends RewardService {
         return giftProductId;
     }
 
-    public void setGiftProductId(long giftProductId) {
-        this.giftProductId = giftProductId;
+    public void setGiftProductId( long argGiftProductId ) {
+        if ( argGiftProductId > 0 ) {
+            this.giftProductId = argGiftProductId;
+        } else {
+            throw new IllegalArgumentException( argGiftProductId + " is not a valid product" );
+        }
+
     }
 }

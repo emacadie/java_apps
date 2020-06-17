@@ -72,6 +72,78 @@ Can also be set in junit-platform.properties in root of classpath
 convention is to make a null variable to hold class
 and put constructor call in @BeforeEach setUp
 
+Maybe I am not the sharpest knife in the drawer, but I am not sure I see the point of @Nested classes and tests
+Why not just create the inputs in the test method? It would be fewer lines of code.
+
+combining @Nested with @DisplayName you could make "given", "when", "then" lines like Cucumber
+given: @BeforeEach setUp
+then: @Test
+or:
+given: @Nested class
+given: @Nested class inside that one
+when: @BeforeEach setUp in nested nested class
+then: @Test
+or:
+given: @Nested
+when and then: @Test
+used in BDD - application is specified and designed by describing how it should behave
+Test phase to BDD:
+arrange -> given
+act -> when
+assert -> then
+
+nested test classes:
+use non-static inner classes - @BeforeAll and @AfterAll won't work by default (only w/Lifecycle.PER_CLASS, which can override)
+use w/@DisplayName
+
+assertions:
+good test should have one act and one assert operation
+also said you can have one act and multiple assertions
+but not multiple actions
+
+assertAll
+assertArrayEquals
+assertEquals
+assertFalse
+assertIterableEquals
+assertLinesMatch
+assertNotEquals
+assertNotNull
+assertNotSame
+assertNull
+assertSame
+assertThrows
+assertTimeout
+assertTimeoutPreemptively
+assertTrue
+fail
+
+External Assertion Libraries:
+AssertJ
+Hamcrest
+
+assertions: usually first arg is expected, second is what you got,
+optional third is an error message if something is wront
+() -> {
+    System.out.println( "Lazy loaded" );
+    return "Error, the product ID is incorrect"; // this goes in stack trace
+}
+
+Multiple assertions? Use Assertions.assertAll and lambdas
+If one fails, others will still be executed
+
+to disable tests:
+use annotation  org.junit.jupiter.api.Disabled on methods or classes
+Like Spock's Ignore
+There is also
+DisabledIf
+DisabledIfEnvironmentVariable
+DisabledIfSystemProperty
+Unlike commenting out @Test, @Disabled forces you to give a reason
+
+org.junit.jupiter.api.Assumptions
+Failed Assumptions do not result in a test failure, only failed assertions
+
 
 
 
