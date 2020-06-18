@@ -144,6 +144,16 @@ Unlike commenting out @Test, @Disabled forces you to give a reason
 org.junit.jupiter.api.Assumptions
 Failed Assumptions do not result in a test failure, only failed assertions
 
+You can put assumptions in setUp to control if a test should be run
 
+They like the org.junit.jupiter.api.function.Executable interface
+use it to create lambdas as an arg
 
+Other annotations:
+@ExtendWith
+@ParameterizedTest
+@RepeatedTest
+@Tag
+@TestFactory
+@TestTemplate
 
