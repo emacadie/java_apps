@@ -157,3 +157,27 @@ Other annotations:
 @TestFactory
 @TestTemplate
 
+For interfaces, methods w/@BeforeAll and @AfterAll must be static
+use @TestInstance(Lifecycle.PER_CLASS)
+
+How to repeat a test?
+@RepeatedTest
+You can give a custom name to each test
+If you use @RepeatedTest, you do not need @Test
+
+We can create tests at runtime
+DynamicTests (like generative tests?), Parameterized Test
+Use method annotated with @TestFactory to create dynamic tests
+method cannot be private or static
+as your source, use Collection, something that implements Iterable, Iterator, or Stream
+DynamicContainer contains dynamic tests, or other DynamicContainer instances
+From API for DynamicContainer: It is composed of a display name and an Iterable or Stream of DynamicNodes.
+
+DynamicTest: has a display name and Executable (functional interface)
+@BeforeEach and @AfterEach are not executed for dynamic tests
+
+If one dynamic test fails, others will still run
+@BeforeEach will only get executed once
+
+
+

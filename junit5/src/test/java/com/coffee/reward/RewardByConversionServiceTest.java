@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-public class RewardByConversionServiceTest {
+public class RewardByConversionServiceTest implements TestHelper {
 
     private RewardByConversionService reward = null;
 
     @BeforeEach // cannot be static
     void setUp() {
-        System.out.println( "BeforeEach" );
+        System.out.println( "beforeEach in RewardByConversionServiceTest" );
         reward = new RewardByConversionService();
         reward.setAmount( 10 );
         reward.setNeededPoints( 100 );
@@ -28,11 +28,7 @@ public class RewardByConversionServiceTest {
         Assertions.assertEquals( 10, reward.getAmount() );
     }
 
-    @Test
-    @DisplayName( "Correct points are set" )
-    void correctPoint() {
-        Assertions.assertEquals( 100, reward.getNeededPoints() );
-    }
+
 
     @Test
     @DisplayName( "When empty order and zero points no rewards should be applied" )
@@ -76,18 +72,11 @@ public class RewardByConversionServiceTest {
                 () -> {
                     Assertions.assertEquals( 0, info.getPointsRedeemed() );
                 });
+    } // emptyOrderEnoughPointsWithAssumingThat
 
+    @Override
+    public RewardService getRewardService() {
+        return reward;
     }
 
-    private List< Product > getEmptyOrder() {
-        return Arrays.asList();
-    }
-
-    private List< Product > getSampleOrder() {
-        Product bigDecaf = new Product( 2, "Big Decaf", 2.49 );
-        Product bigLatte = new Product( 3, "Big Latte", 2.99 );
-        Product bigTea   = new Product( 4, "Big Tea", 2.99 );
-        Product espresso = new Product( 5, "Espresso", 2.99 );
-        return Arrays.asList( bigDecaf, bigLatte, bigTea, espresso );
-    }
 }
