@@ -179,5 +179,58 @@ DynamicTest: has a display name and Executable (functional interface)
 If one dynamic test fails, others will still run
 @BeforeEach will only get executed once
 
+parameterized tests
+@ParameterizedTest annotation, kind of a replacement/alternative for @Test
+you need to declare a source
+
+May need to add a new dependency: org.junit.jupiter, junit-jupiter-params, 5.2.6
+(included these days)
+parameterized tests can have a custom display name
+
+parameters can only be injected into test methods, not lifecycle methods
+@TestInfo and @TestReporter can inject info into many test and lifecycle methods
+(these must come after parameters injected into a test)
+
+Like dynamic tests, if one of the parameterized tests fails, the others still run
+using @DisplayName will give a name for the test container for the parameterized tests
+to give names for each test, use "name" attribute of @ParameterizedTest
+
+I need to look into @TestReporter. I am not seeing it in the output.
+
+also: gradle build and gradle test only seem to run tests if there is a change
+or if I delete the report folder
+rm -rvf build/reports
+Maybe re-running tests sounds strange, but I prefer the computer do what I want
+I could do gradle clean or --rerun-tasks or "gradle cleanTest test"
+or "gradle cleanTest test --no-build-cache"
+or add this to build.gradle: test.outputs.upToDateWhen {false}
+https://stackoverflow.com/questions/29427020/how-to-run-gradle-test-when-all-tests-are-up-to-date
+Great answer!!! Passed it using a parameter: gradle test -Prerun-tests.
+Code in build.gradle: if ( project.hasProperty( "rerun-tests" ) ) { 	test.outputs.upToDateWhen { false } }
+Or  in build.gradle
+test {
+    dependsOn 'cleanTest'
+    // Your previous task details (if any)
+}
+StackOverflow references https://blog.gradle.org/stop-rerunning-tests
+But I am not in prod w/this, so what's the big deal?
+
+Argument sources:
+at least one source
+source must provide values for all parameters
+one execution for each group of arguments
+@ValueSource: arrays of primitives, used on methods w/single param
+@EnumSource: optional: Names of values, mode, used on methods w/single param
+@MethodSource: methods will provide arg
+methods w/one param: return Stream of parameter type or primitive types
+methods w/multiple params: return a Stream, Iterable, Iterator or array of type args
+methods used must be static (unless using @TestInstance(Lifecycle.PER_CLASS))
+@CsvSource: param for delimiter
+@CsvFileSource: files must be on classpath, params for encoding, line separator, delimiter
+each line is one invocation
+@ArgumentsSource: for custom sources; you need to implement ArgumentsProvider interface, returns a Stream
+
+
+
 
 
