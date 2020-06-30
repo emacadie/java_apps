@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestReporter;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.converter.ConvertWith;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.ArgumentsSource;
 import org.junit.jupiter.params.provider.CsvFileSource;
@@ -126,6 +127,16 @@ public class RewardByGiftServiceParameterizedTest {
     void discountShouldBeAppliedArgumentsSource( long productId, long customerPoints ) {
         reward.setGiftProductId( productId );
         RewardInformation info = reward.applyReward( this.getSampleOrder(), customerPoints );
+        Assertions.assertTrue( info.getDiscount() > 0 );
+    }
+
+    // I did not know you could have annotations in the args
+    @ParameterizedTest
+    @ValueSource( strings = { "1; Small Decaf; 1.99", "2; Big Decaf; 2.49" } )
+    void discountShouldBeAppliedCustomConverter( @ConvertWith( ProductArgumentConverter.class ) Product product ) {
+        System.out.println( "Testing product: " + product.getName() );
+        reward.setGiftProductId( product.getId() );
+        RewardInformation info = reward.applyReward( this.getSampleOrder(), 200 );
         Assertions.assertTrue( info.getDiscount() > 0 );
     }
 

@@ -5,6 +5,9 @@ API: https://junit.org/junit5/docs/current/api/
 https://junit.org/junit5/docs/5.6.0/api/
 https://junit.org/junit5/docs/5.6.2/api/
 
+On my system, reports at
+file:///home/ericm/github/java_apps/junit5/build/reports/tests/test/index.html
+
 Tests should be easy to understand, easy to read and easy to modify
 I guess that eliminates mocking and stubbing
 
@@ -175,6 +178,7 @@ From API for DynamicContainer: It is composed of a display name and an Iterable 
 
 DynamicTest: has a display name and Executable (functional interface)
 @BeforeEach and @AfterEach are not executed for dynamic tests
+no lifecycle methods for dynamic tests
 
 If one dynamic test fails, others will still run
 @BeforeEach will only get executed once
@@ -229,6 +233,34 @@ methods used must be static (unless using @TestInstance(Lifecycle.PER_CLASS))
 @CsvFileSource: files must be on classpath, params for encoding, line separator, delimiter
 each line is one invocation
 @ArgumentsSource: for custom sources; you need to implement ArgumentsProvider interface, returns a Stream
+
+argument conversion:
+just for @ValueSource, @CsvSource, @CsvFileSource
+implicitly: String can be converted to primitive types, Enum, java.time classes
+see section 2.15.4. Argument Conversion in JUnit user guide
+You can come up with your own using @ConvertWith and implementing Interface ArgumentConverter
+or extend SimpleArgumentConverter
+
+
+JUnit extensions, extension points
+parameter resolution, meta-annotations, keeping state
+
+JUnit design principle: prefer extension points over features
+
+3 types of interfaces:
+1. General purpose (like TestInstancePostProcessor, ParamterResolvers)
+2. Conditional (ExecutionCondition)
+3. Lifecycle callbacks (BeforeAllCallback, AfterAllCallback. BeforeEachCallback, AfterEachCallback)
+and there are others
+
+Extension Registration:
+Explicit w/@ExtendWith
+or globally with java.util.ServiceLoader (this requires a lot of work, a file in META-INF)
+@ExtendWith is repeatable, so a class (or method) could do this:
+@ExtendWith( FirstExtension.class )
+@ExtendWith( SecondExtension.class )
+
+
 
 
 
