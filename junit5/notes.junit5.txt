@@ -268,6 +268,12 @@ you can inject params into lifecycle methods, constructors, and methods annotate
 Meta-annotations - you can define your own annotations
 by combining built-in annotations, like Groovy
 
+extensions must be stateless
+There is a store to store key-value pairs
+There is a hierarchy of contexts: MethodExtensionContext, ClassExtensionContext, JupiterEngineExtensionContext
+each has a reference to its parent
+the store uses keys and values like a Map, but it is not a Map. It has other methods.
 
+having issues with keeping state; tutorial relies on a private API
 
 

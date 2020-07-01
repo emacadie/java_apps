@@ -10,7 +10,11 @@ import java.lang.annotation.Target;
 @Target( { ElementType.TYPE, ElementType.METHOD } )
 @Retention( RetentionPolicy.RUNTIME )
 @ExtendWith(
-        { IllegalArgumentExceptionHandlerExtension.class, RewardByConversionParameterResolver.class }
+        {
+                IllegalArgumentExceptionHandlerExtension.class,
+                RewardByConversionParameterResolver.class,
+                DisableTestsifExceptionThrownExtension.class
+        }
 )
 public @interface TestWithErrorHandler {
 
