@@ -22,7 +22,17 @@ public class RewardByConversionService extends RewardService {
         return amount;
     }
 
+    /*
     public void setAmount( double amount ) {
-        this.amount = amount;
+       this.amount = amount;
     }
+    */
+    public void setAmount( double amount ) {
+        if ( amount > 0 ) {
+            this.amount = amount;
+        } else {
+            throw new IllegalArgumentException( "Amount should be greater than zero" );
+        }
+    }
+
 }

@@ -260,8 +260,13 @@ or globally with java.util.ServiceLoader (this requires a lot of work, a file in
 @ExtendWith( FirstExtension.class )
 @ExtendWith( SecondExtension.class )
 
+Parameter injection
+Test information parameters: RepetitionInfo, TestInfo, TestReporter
+they are injected with interface ParameterResolver
+you can inject params into lifecycle methods, constructors, and methods annotated with @Test and @TestFactory
 
-
+Meta-annotations - you can define your own annotations
+by combining built-in annotations, like Groovy
 
 
 
