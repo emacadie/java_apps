@@ -7,6 +7,7 @@ plugins {
 	id 'java'
 	// id 'eclipse' // optional (to generate Eclipse project files)
 	id 'idea' // optional (to generate IntelliJ IDEA project files)
+	id 'jacoco'
 }
 
 repositories {
@@ -14,16 +15,43 @@ repositories {
 }
 
 dependencies {
-    // implementation(localGroovy()) // if doing Groovy
+    // implementation( localGroovy() ) // if doing Groovy
 	testImplementation( 'org.junit.jupiter:junit-jupiter:5.6.2' )
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.2'
+
+    // to run JUnit4
+    def junit4Version   = '4.13'
+    testImplementation( "junit:junit:${ junit4Version }" )
+    testRuntimeOnly( "org.junit.vintage:junit-vintage-engine" ) {
+        because 'allows JUnit 3 and JUnit 4 tests to run'
+    }
+
+    testRuntimeOnly( "org.junit.platform:junit-platform-launcher" ) {
+        because 'allows tests to run from IDEs that bundle older version of launcher'
+    }
 }
 
 test {
 	dependsOn 'cleanTest'
-	useJUnitPlatform()
+	// useJUnitPlatform()
+	useJUnitPlatform {
+		// includeTags 'fast'
+		excludeTags 'slow'
+		// you could exclude/include mulitple tags: excloudeTags 'slow', 'slower'
+	}
+
 	testLogging {
 		events "passed", "skipped", "failed"
 	}
+    finalizedBy( jacocoTestReport )
+	// systemProperty 'java.util.logging.manager', 'org.apache.logging.log4j.jul.LogManager'
 }
+/*
+junitPlatform {
+	logManager 'org.apache.logging.log4j.jul.LogManager'
+	reportsDir file( 'build/test-results/junit-platform' )
+}
+*/
+
 
 

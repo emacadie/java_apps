@@ -7,6 +7,13 @@ https://junit.org/junit5/docs/5.6.2/api/
 
 On my system, reports at
 file:///home/ericm/github/java_apps/junit5/build/reports/tests/test/index.html
+Jacoco reports at
+file:///home/ericm/github/java_apps/junit5/build/reports/jacoco/test/html/index.html
+
+gradle build
+gradle test
+gradle jacocoTestReport
+
 
 Tests should be easy to understand, easy to read and easy to modify
 I guess that eliminates mocking and stubbing
@@ -275,5 +282,43 @@ each has a reference to its parent
 the store uses keys and values like a Map, but it is not a Map. It has other methods.
 
 having issues with keeping state; tutorial relies on a private API
+
+Sample extensions:
+They look at
+https://github.com/junit-team/junit5/blob/main/junit-jupiter-engine/src/main/java/org/junit/jupiter/engine/extension/DisabledCondition.java
+https://github.com/junit-team/junit5/wiki/Third-party-Extensions
+https://github.com/junit-team/junit5-samples - different samples now
+
+Running JUnit on command line (I have not tried in IntelliJ)
+Command line runner:
+https://repo1.maven.org/maven2/org/junit/platform/junit-platform-console-standalone/
+java -jar /home/ericm/jar.files/junit-platform-console-standalone-1.7.0-M1.jar -cp build/classes/java/main:build/classes/java/test --scan-classpath
+java -jar /home/ericm/jar.files/junit-platform-console-standalone-1.7.0-M1.jar -cp build/classes/java/main:build/classes/java/test:build/resources/test --scan-classpath
+You could add "-details none" at the end to see less
+
+Tags: There is the @Tag annotation that you can apply to a test class
+You can use this to only run certain tests
+cannot be null or blank, have whitespace, ISO control characters, or reserved characters: comman (, ), &, |, !
+
+look at mutation testing
+
+JUnit5: new package: org.junit.jupiter
+You can use JUnit4 and JUnit5
+JUnit4: Test methods must be public
+Different lifecycle annotations
+Use @Ignore instead of @Disable
+Use @Category instead of @Tag
+
+new in JUnit 5:
+nested tests
+custom display names
+Java 8 support
+parameter injection
+dynamic and parameterized tests
+meta-annotations
+
+No need to upgrade all your tests at once
+JUnit Vintage engine can run JUnit 4 tests
+
 
 

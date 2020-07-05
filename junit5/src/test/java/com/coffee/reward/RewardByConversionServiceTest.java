@@ -5,11 +5,10 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
+@Tag( "fast" )
 public class RewardByConversionServiceTest implements TestHelper {
 
     private RewardByConversionService reward = null;
@@ -27,8 +26,6 @@ public class RewardByConversionServiceTest implements TestHelper {
     void correctAmount() {
         Assertions.assertEquals( 10, reward.getAmount() );
     }
-
-
 
     @Test
     @DisplayName( "When empty order and zero points no rewards should be applied" )

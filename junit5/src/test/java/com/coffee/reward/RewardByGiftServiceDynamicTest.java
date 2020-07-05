@@ -4,9 +4,9 @@ import com.coffee.product.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DynamicContainer;
 import org.junit.jupiter.api.DynamicTest;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.TestFactory;
 import org.junit.jupiter.api.function.ThrowingConsumer;
-
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.DynamicContainer.dynamicContainer;
 import static org.junit.jupiter.api.DynamicTest.dynamicTest;
 
+@Tag( "slow" )
 public class RewardByGiftServiceDynamicTest {
 
     private RewardByGiftService reward;
