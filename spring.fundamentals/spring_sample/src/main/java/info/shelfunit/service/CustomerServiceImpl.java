@@ -7,7 +7,6 @@ import info.shelfunit.repository.CustomerRepository;
 import info.shelfunit.repository.HibernateCustomerRepositoryImpl;
 
 public class CustomerServiceImpl implements CustomerService {
-
 	private CustomerRepository custRepo = new HibernateCustomerRepositoryImpl();
 	
 	@Override

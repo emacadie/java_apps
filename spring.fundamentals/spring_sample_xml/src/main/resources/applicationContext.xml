@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean name="customerRepository"
+		class="info.shelfunit.repository.HibernateCustomerRepositoryImpl">
+
+	</bean>
+
+    <!-- In Application, we get the bean by name using this name and using the interface as the type -->
+	<bean name="customerService"
+		class="info.shelfunit.service.CustomerServiceImpl" 
+		autowire="byType"> 
+		<!-- autowire="constructor" -->
+		<!-- setter injection -->
+		<!-- <property name="customerRepository" ref="customerRepository" /> -->
+		<!-- info.shelfunit.service.CustomerServiceImpl contains an object called customerRepository 
+		of type CustomerRepository (which is an interface)
+		Here, we use the "ref" property to set that to the bean in XML with name "customerRepository"
+		-->
+		<!-- constructor injection -->
+		<!-- <constructor-arg index="0" ref="customerRepository" /> -->
+	</bean>
+
+</beans>
+    

@@ -1,0 +1,64 @@
+/home/ericm/tmp/eclipse/sts001/spring_sample
+mvn exec:java -Dexec.mainClass="info.shelfunit.runner.Application"
+
+Spring removes configuration code
+We don't want to do things like:
+private CustomerRepository custRepo = new HibernateCustomerRepositoryImpl();
+when HibernateCustomerRepositoryImpl implements CustomerRepository
+HibernateCustomerRepositoryImpl has hard-coded data
+And in Application:
+CustomerService service = new CustomerServiceImpl();
+We are calling specific implementations, we need to call interfaces, 
+use Spring to wire implementations
+
+You used to be able to download Spring directly
+Now they want you to use Maven/Gradle
+
+Spring Boot is good, but it's a black box
+
+https://spring.io/projects/spring-framework
+They really push Spring Boot
+
+XML: some things are easier in XML
+Separation of concerns
+
+We will make a new project: spring_sample_xml
+We do need an XML, calling it applicationContext.xml is convention
+Spring Context is sort of a HashMap
+Can simply be a registry
+Namespaces aid in configuration/validation
+
+Put it src/main/resources
+Spring Tool Suite no longer offers Spring Application Context from wizard
+
+Beans in XML:
+Defining beans in xml is like replacing keyword "new"
+Define class, use interface
+We can use different XML files for diff environments without needing to recompile
+
+2 types of injection: setter injection, constructor injection
+They can be used together
+For existing code, setter is better
+In info/shelfunit/service/CustomerServiceImpl.java
+change
+private CustomerRepository custRepo = new HibernateCustomerRepositoryImpl();
+to 
+private CustomerRepository customerRepository;
+and add the setter
+
+Constructor injection
+Constructor gives a guaranteed contract
+Can be used w/setter injection
+Index-based, not name-based like setter injection
+starting with "0"
+
+Autowiring:
+4 ways:
+byType (you only get one instance)
+byName (will look at args for setter, setter in Java must follow convention, as should "name" element of the object to be set)
+constructor
+no
+
+
+
+

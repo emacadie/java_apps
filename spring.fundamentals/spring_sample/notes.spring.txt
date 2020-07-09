@@ -1,2 +1,0 @@
-/home/ericm/tmp/eclipse/sts001/spring_sample
-mvn exec:java -Dexec.mainClass="info.shelfunit.runner.Application"
