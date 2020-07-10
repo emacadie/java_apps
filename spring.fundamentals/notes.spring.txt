@@ -1,6 +1,11 @@
 /home/ericm/tmp/eclipse/sts001/spring_sample
 mvn exec:java -Dexec.mainClass="info.shelfunit.runner.Application"
 
+https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/
+https://docs.spring.io/spring/docs/5.2.7.RELEASE/javadoc-api/
+https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core.html
+
+
 Spring removes configuration code
 We don't want to do things like:
 private CustomerRepository custRepo = new HibernateCustomerRepositoryImpl();
@@ -55,10 +60,32 @@ starting with "0"
 Autowiring:
 4 ways:
 byType (you only get one instance)
-byName (will look at args for setter, setter in Java must follow convention, as should "name" element of the object to be set)
+byName (will look at args for setter, setter in Java must follow convention, 
+as should "name" element of the object to be set)
 constructor
 no
 
+Annotations:
+https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core.html#beans-annotation-config
 
+still uses XML
+Adding a new namespace
+<context:component-scan base-package="info.shelfunit" />: tells it which package to search for annotations
+package org.springframework.stereotype
+3 main annotations (or "stereotype annotations"):
+@Component, @Service, @Repository
+Pretty much the same
+@Component - any POJO
+@Service - business logic layer (not web service)
+@Repository - data layer
+
+Autowire: better w/annotations
+tied to location
+Can do autowiring at member variables, constructors, setters
+(Doesn't this prevent using different beans in different environments?)
+To autowire a member variable, just annotate with @Autowired
+@Autowired
+private CustomerRepository custRepo;
+The component scanner looks through classes and wires stuff w/@Autowired
 
 
