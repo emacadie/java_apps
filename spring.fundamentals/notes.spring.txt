@@ -1,10 +1,13 @@
 /home/ericm/tmp/eclipse/sts001/spring_sample
 mvn exec:java -Dexec.mainClass="info.shelfunit.runner.Application"
 
+Eclipse notes: control-space to add import for a class name as you type it
+
 https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/
 https://docs.spring.io/spring/docs/5.2.7.RELEASE/javadoc-api/
 https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core.html
 
+Note: To copy a project in STS: The project you want to copy must be open
 
 Spring removes configuration code
 We don't want to do things like:
@@ -65,7 +68,7 @@ as should "name" element of the object to be set)
 constructor
 no
 
-Annotations:
+Annotations (project spring_sample_xml_anno):
 https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core.html#beans-annotation-config
 
 still uses XML
@@ -87,5 +90,23 @@ To autowire a member variable, just annotate with @Autowired
 @Autowired
 private CustomerRepository custRepo;
 The component scanner looks through classes and wires stuff w/@Autowired
+
+Java configuration: Latest method (Project spring_sample_java)
+no applicationContext.xml
+Now we make a class to configure our app and use the annotation
+org.springframework.context.annotation.Configuration
+@Configuration at class level
+Spring beans defined by @Bean
+@Bean at method level
+setter injection:
+Simple as a method call
+"mystery" of dependency injection goes away
+Note: Many of these beans are singletons
+It sets it once, and later calls to getX return cached instance
+Constructor injection
+Just like setter injection
+Autowiring:
+Add @ComponentScan( { "some.package.to.look.for.beans", "another.package" } )
+Can use @Repository and @Service to do all autowiring with nothing in AppConfig
 
 
