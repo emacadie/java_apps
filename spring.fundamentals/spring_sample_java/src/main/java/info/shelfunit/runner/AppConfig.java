@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 
 import info.shelfunit.repository.CustomerRepository;
 import info.shelfunit.repository.HibernateCustomerRepositoryImpl;
@@ -12,7 +14,13 @@ import info.shelfunit.service.CustomerServiceImpl;
 
 @Configuration
 @ComponentScan( { "info.shelfunit" } ) // for autowiring
+@PropertySource( "app.properties" )
 public class AppConfig {
+	
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer getPropertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
 
 	/* setter injection */
 	/*
@@ -62,4 +70,6 @@ public class AppConfig {
 		return new HibernateCustomerRepositoryImpl();
 	}
 	*/
+	
+
 }

@@ -11,8 +11,11 @@ public class Application {
 		
 		ApplicationContext appContext = new ClassPathXmlApplicationContext( "applicationContext.xml" );
 		
-		CustomerService service = appContext.getBean( "customerService", CustomerService.class );
-		
-		System.out.println( service.findAll().get( 0 ).getFirstName() );
+		CustomerService service1 = appContext.getBean( "customerService", CustomerService.class );
+		CustomerService service2 = appContext.getBean( "customerService", CustomerService.class );
+		// same address, same object if singleton, diff if prototype
+		System.out.println( "Here is service1: " + service1 );
+		System.out.println( "Here is service2: " + service2 ); 
+		System.out.println( service1.findAll().get( 0 ).getFirstName() );
 	} // end main
 }

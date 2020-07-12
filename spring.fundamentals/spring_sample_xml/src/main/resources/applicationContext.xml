@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
-	http://www.springframework.org/schema/beans/spring-beans.xsd">
+	   http://www.springframework.org/schema/beans/spring-beans.xsd
+	   http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:annotation-config /> <!-- You need this to load properties when using annotations -->
+    <context:property-placeholder location="app.properties" />
 
 	<bean name="customerRepository"
 		class="info.shelfunit.repository.HibernateCustomerRepositoryImpl">
-
+        <!-- you need this if you are using a setter in your bean, 
+        but you can get rid of it if you are using @Value  
+        <property name="dbUserName" value="${dbUserName}"></property>
+        -->
 	</bean>
 
     <!-- In Application, we get the bean by name using this name and using the interface as the type -->
 	<bean name="customerService"
 		class="info.shelfunit.service.CustomerServiceImpl" 
-		autowire="byType"> 
+		autowire="byType"
+		scope="prototype"> 
+		<!--  scope could be "singleton" or "prototype" -->
 		<!-- autowire="constructor" -->
 		<!-- setter injection -->
 		<!-- <property name="customerRepository" ref="customerRepository" /> -->

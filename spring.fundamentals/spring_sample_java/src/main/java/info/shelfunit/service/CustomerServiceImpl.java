@@ -3,12 +3,14 @@ package info.shelfunit.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import info.shelfunit.model.Customer;
 import info.shelfunit.repository.CustomerRepository;
 
 @Service( "customerService" ) // can use this if we take it out of AppConfig
+@Scope( "prototype" ) // singleton or prototype
 public class CustomerServiceImpl implements CustomerService {
 	
 	// @Autowired // could be here to wire customerRepository 

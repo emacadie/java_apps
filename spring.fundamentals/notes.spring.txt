@@ -109,4 +109,59 @@ Autowiring:
 Add @ComponentScan( { "some.package.to.look.for.beans", "another.package" } )
 Can use @Repository and @Service to do all autowiring with nothing in AppConfig
 
+Bean scopes
+scope is not a pattern
+Spring implements patterns
+Watch Design Patterns in Java (another course)
+5 scopes:
+1. Singleton - default, valid in any configuration
+2. Prototype - also in any config
+3. Request - web only
+4. Session - web only 
+5. Global - web only
+
+Singleton:
+Only one instance
+Default scope
+One instance per container or context
+You can do this by adding the @Scope annotation to a class
+
+org.springframework.context.annotation.Scope
+Options at org.springframework.beans.factory.config.ConfigurableBeanFactory ("singleton" or "prototype")
+If you do not want the raw strings in your annotations
+Requires the AOP jar, but thanks to Maven, it should be there
+Can also be done w/XML
+    <bean name="customerService"
+        class="info.shelfunit.service.CustomerServiceImpl" 
+        autowire="byType"
+        scope="singleton"> 
+This does not require the AOP jar
+Prototype guarantees a unique instance each time
+
+loading properties:
+says it's easier in XML
+You need the context namespace, like we have in the "spring_sample_xml_anno" project
+But we did it in spring_sample_xml project
+<context:property-placeholder location="/path/to/properties.properties" />
+I imagine you could either have it look in classpath, or start at the system root
+
+Then to use the properties, use the ${value} syntax to access the properties
+<property name="dbUserName" value="${dbUserName}" / >
+Or in annotations, you can do this:
+@Value( "${dbUserName}" )
+private String dbUserName
+
+Java config for properties
+Looks complicated
+@PropertySource( "path.to.properties" )
+
+@Bean
+public static PropertySourcesPlaceholderConfigurer getPropertySourcesPlaceholderConfigurer {
+    return new PropertySourcesPlaceholderConfigurer();
+}
+
+@Value( "${dbUserName}" )
+private String dbUserName
+This will be done in spring_sample_java
+
 
