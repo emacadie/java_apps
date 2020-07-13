@@ -164,4 +164,7 @@ public static PropertySourcesPlaceholderConfigurer getPropertySourcesPlaceholder
 private String dbUserName
 This will be done in spring_sample_java
 
+in the new, updated project, using IntelliJ
+Configuration can make code brittle.
+If you have config in code, it will be hard to move to another environment.
 
