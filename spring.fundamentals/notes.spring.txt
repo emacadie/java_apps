@@ -123,7 +123,7 @@ Watch Design Patterns in Java (another course)
 Singleton:
 Only one instance
 Default scope
-One instance per container or context
+One instance per container or context (not necessarily JVM)
 You can do this by adding the @Scope annotation to a class
 
 org.springframework.context.annotation.Scope
@@ -137,6 +137,7 @@ Can also be done w/XML
         scope="singleton"> 
 This does not require the AOP jar
 Prototype guarantees a unique instance each time
+You put @Scope below @Bean or @Service
 
 loading properties:
 says it's easier in XML
