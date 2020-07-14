@@ -1,4 +1,4 @@
-package info.shelfunit.info.shelfunit.service;
+package info.shelfunit.service;
 
 import info.shelfunit.model.Speaker;
 

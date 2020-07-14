@@ -1,7 +1,6 @@
 package info.shelfunit.runner;
 
-import info.shelfunit.info.shelfunit.service.SpeakerService;
-import info.shelfunit.info.shelfunit.service.SpeakerServiceImpl;
+import info.shelfunit.service.SpeakerService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -20,6 +19,6 @@ public class Application {
         SpeakerService service2 = appContext.getBean( "speakerService", SpeakerService.class );
         System.out.println( "address for service1: " + service1 );
         System.out.println( "address for service2: " + service2 ); // should be same if singleton
-        System.out.println( "Here is the result: " + service1.findAll().get( 0 ).getFirstName() );
+        System.out.println( "Here is the result in Application.main: " + service1.findAll().get( 0 ).getFirstName() );
     }
 }

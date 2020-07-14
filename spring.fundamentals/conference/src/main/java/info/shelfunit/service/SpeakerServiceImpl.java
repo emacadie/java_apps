@@ -1,8 +1,9 @@
-package info.shelfunit.info.shelfunit.service;
+package info.shelfunit.service;
 
 import info.shelfunit.model.Speaker;
 import info.shelfunit.repository.HibernateSpeakerRepositoryImpl;
 import info.shelfunit.repository.SpeakerRepository;
+import info.shelfunit.service.SpeakerService;
 
 import java.util.List;
 

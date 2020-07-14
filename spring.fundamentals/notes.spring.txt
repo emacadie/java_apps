@@ -6,6 +6,9 @@ Eclipse notes: control-space to add import for a class name as you type it
 https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/
 https://docs.spring.io/spring/docs/5.2.7.RELEASE/javadoc-api/
 https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core.html
+https://docs.spring.io/spring/docs/5.2.7.RELEASE/
+https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core.html#expressions
+Now it is all one page
 
 Note: To copy a project in STS: The project you want to copy must be open
 
@@ -81,6 +84,7 @@ Pretty much the same
 @Component - any POJO
 @Service - business logic layer (not web service)
 @Repository - data layer
+These go on classes
 
 Autowire: better w/annotations
 tied to location
@@ -168,4 +172,52 @@ This will be done in spring_sample_java
 in the new, updated project, using IntelliJ
 Configuration can make code brittle.
 If you have config in code, it will be hard to move to another environment.
+
+Advanced Bean Configuration
+BeanPostProcessor
+FactoryBean
+SpEL (Spring Expression Language)
+Proxies
+Profiles
+
+Bean Lifecycle
+Instantiation -> Populate properties -> BeanNameAware -> BeanFactoryAware ->
+Pre Initialization - BeanPostProcessors  -> InitializeBean -> initMethod ->
+Post Initialization - BeanPostProcessors
+
+Adding an init method in a bean:
+add dependency to pom.xml
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+.
+He went to conference-java project without telling us
+
+https://www.baeldung.com/spring-postconstruct-predestroy
+Is this really a Spring annotation?
+https://docs.oracle.com/javaee/7/api/javax/annotation/PostConstruct.html
+https://docs.oracle.com/javaee/6/api/javax/annotation/PostConstruct.html
+He recommends putting database connections elsewhere
+Let Spring do that
+
+FactoryBean:
+Builds on initMethod concept
+Based on Factory Method pattern
+Lets you work with legacy code
+We can establish a contract without modifying code
+org.springframework.beans.factory.FactoryBean
+We do this in conference-java project in info.shelfunit.util package
+
+Spring Expression Language, SpEL
+Manipulate the object graph, evaluate at run time, work with config
+We do this in conference-java project in HibernateSpeakerRepositoryImpl
+https://docs.spring.io/spring/docs/4.3.10.RELEASE/spring-framework-reference/html/expressions.html
+https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core.html#expressions
+Now it is all one page
+
+AOP proxies allow you to inject behavior without modifying underlying code
+Sort of like metaprogramming, I think
+
 
