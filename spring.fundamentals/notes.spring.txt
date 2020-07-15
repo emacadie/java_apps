@@ -8,7 +8,8 @@ https://docs.spring.io/spring/docs/5.2.7.RELEASE/javadoc-api/
 https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core.html
 https://docs.spring.io/spring/docs/5.2.7.RELEASE/
 https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core.html#expressions
-Now it is all one page
+Now it is all one page - yuck
+https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core.html#aop-api
 
 Note: To copy a project in STS: The project you want to copy must be open
 
@@ -219,5 +220,12 @@ Now it is all one page
 
 AOP proxies allow you to inject behavior without modifying underlying code
 Sort of like metaprogramming, I think
+when should you use it? not too often
+databases, using @Transactional annotation
+
+Bean profiles:
+Use annotation org.springframework.context.annotation.Profile
+Change VM options, add -Dspring.profiles.active=dev
+Change the @Profile to a different value, you get a null pointer exception
 
 
