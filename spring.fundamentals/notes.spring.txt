@@ -228,4 +228,15 @@ Use annotation org.springframework.context.annotation.Profile
 Change VM options, add -Dspring.profiles.active=dev
 Change the @Profile to a different value, you get a null pointer exception
 
+HelloWorldModule and HelloWorldClient deal with modules
+how do Gradle and Maven handle modules?
+https://maven.apache.org/guides/mini/guide-multiple-modules.html may have an answer
+
+Now methods can be Nullable and non-nullable
+Annotations in org.springframework.lang:
+NonNull
+NonNullApi
+NonNullFields
+Nullable
+
 
