@@ -232,6 +232,8 @@ HelloWorldModule and HelloWorldClient deal with modules
 how do Gradle and Maven handle modules?
 https://maven.apache.org/guides/mini/guide-multiple-modules.html may have an answer
 
+https://github.com/bh5k/WhatsNewInSpring5
+
 Now methods can be Nullable and non-nullable
 Annotations in org.springframework.lang:
 NonNull

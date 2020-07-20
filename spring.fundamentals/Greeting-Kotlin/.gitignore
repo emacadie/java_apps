@@ -1,0 +1,12 @@
+out
+workspace.xml
+
+.gradle
+build
+local.properties
+lib
+.idea
+*jar
+
+*.bin
+log

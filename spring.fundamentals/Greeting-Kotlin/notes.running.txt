@@ -1,0 +1,6 @@
+To build:
+gradle build
+To run:
+gradle bootRun
+Go to browswer and type in:
+http://localhost:8080/greeting?name=akkak

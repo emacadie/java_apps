@@ -12,3 +12,6 @@ public class Application implements AppConfig {
 		context.close();
 	}
 }
+
+// I typed in the code, it did not work.
+// I copied and pasted from git hub, it works. Why? I have no idea
