@@ -11,6 +11,10 @@ https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core
 Now it is all one page - yuck
 https://docs.spring.io/spring/docs/5.2.7.RELEASE/spring-framework-reference/core.html#aop-api
 
+Reactive:
+https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
+
+
 Note: To copy a project in STS: The project you want to copy must be open
 
 Spring removes configuration code
@@ -241,4 +245,46 @@ NonNullApi
 NonNullFields
 Nullable
 
+What is a Mono? What is a Flux?
+Reactive:
+https://projectreactor.io/docs/core/release/api/reactor/core/publisher/Mono.html
 
+Problems:
+Debugging reactive apps can be difficult - determining when something might happen is hard
+Reactive databases is a new thing
+Blocking - can happen with other frameworks
+
+JUnit 5 changes and Spring:
+JUnit 5 is more granular
+It allows you to use multiple runners, so you can have multithreaded tests, and/or run multiple runners at once
+Requires Java 8 (fine with me)
+Name changes from JUnit 4 to JUnit 5
+Before -> BeforeEach
+After -> AfterEach
+BeforeClass -> BeforeAll
+AfterClass -> AfterAll
+Ignore -> Disabled
+
+You can use Assertions to expect Exceptions and use lambdas to write expected outcome
+
+Assertions API:
+Lets us use lambdas
+he has a class w/multiple assertions:
+@Test
+    public void shouldAssertAll() {
+        List<Integer> list = Arrays.asList(1, 2, 4);
+        Assertions.assertAll("List assertions",
+            () -> Assertions.assertEquals(list.get(0).intValue(), 1),
+            () -> Assertions.assertEquals(list.get(1).intValue(), 2),
+            () -> Assertions.assertEquals(list.get(2).intValue(), 4),
+            () -> Assertions.assertThrows(Exception.class, () -> {
+                        throw new Exception("Test exceptions");
+                    }));
+    }
+.
+Assertions are like the old Assert
+Assumptions: Added in JUnit5
+Lets you run certain tests in certain environments
+ WebFluxReactiveDemoApplicationTests runs fine if the Spring Boot app is running. 
+ But that defeats the purpose of unit tests.
+ 
