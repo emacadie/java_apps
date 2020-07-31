@@ -7,6 +7,9 @@ To make an app, go to spring initializr: https://start.spring.io/
 
 Can use SKDman, command line
 
+https://www.baeldung.com/spring-boot-testing
+https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/spring-boot-features.html#boot-features-testing
+
 Spring Boot starters are an easy way to include dependencies.
 spring-boot-starter-web, spring-boot-starter-data-jpa
 You might be able to see all the options at https://mvnrepository.com/artifact/org.springframework.boot
@@ -79,7 +82,83 @@ http://localhost:8080/api/v1/sessions, verb POST, put this in body, select "raw"
 
 Update takes PUT verb
 
-https://www.baeldung.com/spring-boot-testing
+Customizing:
+Config:
+use something external: command line, OS environment, JNDI
+internal: property files, servlet params, java config
+For order of precedence, look here:
+https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/spring-boot-features.html#boot-features-external-config
+
+Use an internal source for defaults, and an external source for overrides.
+
+We will use application.properties and OS environment variables.
+
+To add an environment variable in IntelliJ, go to Run|Edit Configurations
+
+How to handle different environments
+application-{profile}.properties:
+application-dev.properties
+application-prod.properties
+To specify profile, use a JVM property:
+-Dspring.profiles.active=dev
+You can set this at Run|Edit Configurations in "VM Options"
+
+
+Our properties in application.properties are overrides of Spring properties
+https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/appendix-application-properties.html#common-application-properties
+https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html
+https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/appendix-application-properties.html
+
+Older versions used to tell you which classes handled those properties
+https://docs.spring.io/spring-boot/docs/2.0.4.RELEASE/reference/html/common-application-properties.html
+-Dspring.profiles.active=prod
+
+You can also use YAML files.
+server:
+  port: 5000
+Gotta have that space in there.
+Pick one and stick with it.
+
+We could also do application-prod.yml like w/application.properties
+
+Custom properties: app.version and a controller
+
+Lots of ways to do properties. That could get confusing.
+
+Spring Boot has an embedded container, as opposed to being embedded inside a container.
+I think that would make deployments easier. At least local deployments.
+You can exclude Tomcat from the main spring-boot-starter-web, and include spring-boot-starter-jetty
+This project has a LOT of dependencies
+
+To make a standalone JAR:
+use maven
+mvn package
+To run: java -jar $JAR_FILE_NAME
+Or:
+Find the build/plugins section
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+Add this to it:
+<configuration>
+<executable>true</executable>
+</configuration>
+run "mvn package" again
+Then just ./$JAR_FILE_NAME
+
+The JAR made is 36,578,152 bytes.
+You can deploy to the cloud. You can dockerize it.
+
+Do you have to deploy on Heroku from git?
+
+But you can make a WAR file.
+Make changes in pom.xml (see war.pom.xml)
+and your main Java class should now import and extend
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+Then run "mvn package" again
+
+
 
 
 /usr/lib/jvm/java-11-openjdk-amd64/bin/java

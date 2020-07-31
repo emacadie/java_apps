@@ -11,11 +11,16 @@
         <version>2.3.1.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+
+    <!-- This XML has changes that you would need to make to pom.xml to deploy as a WAR -->
+
     <groupId>info.shelfunit</groupId>
     <artifactId>conference-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>conference-demo</name>
     <description>Demo project for Spring Boot</description>
+    <!-- add for WAR deployment -->
+    <packaging>war</packaging>
 
     <properties>
         <java.version>1.8</java.version>
@@ -23,21 +28,14 @@
 
     <dependencies>
         <dependency>
-            <!-- This brings in Tomcat by default -->
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <!-- Exclude the Tomcat dependency -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-        <!-- Since we excluded Tomcat, we need to include Jetty -->
+        <!-- addition for WAR -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jetty</artifactId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope> <!-- Now it will expect something to provide a server, and will not provide one itself -->
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
