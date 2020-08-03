@@ -1,0 +1,14 @@
+Another Spring Boot course
+Just Gif It
+
+Uses curl to upload
+curl -F file=@cat.mp4 -F start=0 -F end=0 -F speed=1 -F repeat=0 localhost:8080/upload
+"@" means to use the file, not make that arg a string
+curl -F file=@/home/ericm/Videos/hair/4LfKpAm.mp4 -F start=0 -F end=0 -F speed=1 -F repeat=0 localhost:8080/upload
+
+To help with restarts, use Spring Boot Devtools:
+https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/using-spring-boot.html#using-boot-devtools
+No need for JRebel.
+
+http://github.com/dustinschultz/just-gif-it
+
