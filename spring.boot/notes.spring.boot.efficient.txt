@@ -1,6 +1,14 @@
 Another Spring Boot course
 Just Gif It
 
+Spring Boot:
+https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/
+https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/api/
+
+Spring Framework:
+https://docs.spring.io/spring/docs/5.2.8.RELEASE/spring-framework-reference/
+https://docs.spring.io/spring/docs/5.2.8.RELEASE/javadoc-api/
+
 Uses curl to upload
 curl -F file=@cat.mp4 -F start=0 -F end=0 -F speed=1 -F repeat=0 localhost:8080/upload
 "@" means to use the file, not make that arg a string
@@ -11,4 +19,90 @@ https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/using-sprin
 No need for JRebel.
 
 http://github.com/dustinschultz/just-gif-it
+This requires Angular, which I know nothing about. And really do not want to learn.
+The project has not been updated in 4 years. The Java part works fine.
+The part using JavaScript, true to its reputation as a dumpster fire, is not working fine.
+
+Now looking into @EnableAutoConfiguration
+https://docs.spring.io/spring-boot/docs/current/api/index.html?org/springframework/boot/autoconfigure/EnableAutoConfiguration.html
+Spring Boot is not Spring Boot without Auto Configurations.
+Usually used with @Configuration and @ComponentScan
+org.springframework.boot.autoconfigure.SpringBootApplication combines them
+
+With the first version of Spring, the complaint was people were not Java devs but turning into XML devs.
+Now it's like you are just working with annotations.
+
+Spring makes its config decisions based on a few conditions:
+1. Presence/absense of a JAR
+2. Presence/absense of a Bean
+3. Presence/absense of a Property
+Many more, but these three are important
+
+Spring Boot can generate a report: Auto-configuration report
+Shows positive matches, negative matches, exclusions (usually configured by you), unconditional classes
+Many ways to enable (TIMTOWTDI is starting to annoy me)
+cmd line arg: --debug
+VM arg: -Ddebug
+Environment var: export DEBUG=true
+application.properties: debug=true
+Also application.properties: logging.level.=debug
+Many more!
+
+It would be nice to put the report into a file.
+
+To Exclude unnecessary or misconfigured properties:
+Add String array to @EnableAutoConfiguration( exclude = { SomeClass.class, SomeOtherClass.class } )
+Or excludeName. This takes an array of Strings w/fully qualified package names
+You can also use "exclude" w/@SpringBootApplication
+https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/using-spring-boot.html#using-boot-auto-configuration
+Or in application.properties: spring.autoconfigure.exclude=
+It takes a comma separated list of fully qualified class names.
+You can combine with w/annotations. (Seriously, that sounds like a bad idea.)
+
+You can see all the auto-config classes here:
+https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-auto-configuration-classes.html#auto-configuration-classes
+It can help w/performance, startup time
+
+You might want to reconfigure instead of exclude.
+https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties
+You can do that with those properties in the application.properties file
+That page does not have all the properties. You might have to look at source or javadoc.
+It looks like they are in org.springframework.boot.autoconfigure package, which has many sub-packages.
+@ConditionalOnProperty - an autoconfig depends on a property, and can be enabled/disabled in a properties file
+@ConditionalOnMissingBean - only include this config if this bean is not defined within application context
+
+WRT looking in source or Javadoc, at one point he mentions PropertySourcesPlaceholderConfigurer
+That is in the base Spring Framework
+https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/support/PropertySourcesPlaceholderConfigurer.html
+
+Your definitions are run before the Spring Boot config.
+You can disable servlet filters as well.
+By defining a FilterRegistrationBean or a ServletRegistrationBean and calling setEnabled( false )
+
+Completely Custom Auto Config:
+@Configuration and @Import( { array of auto config classes } )
+Check the Spring documentation first
+
+Tuning of config:
+   JacksonAutoConfiguration matched:
+      - @ConditionalOnClass found required class 'com.fasterxml.jackson.databind.ObjectMapper' (OnClassCondition)
+That works with JSON. We really don't need it.
+
+@ConditionalOn... Annotations:
+References an interface introduced in Spring Framework v4:
+org.springframework.context.annotation.Condition
+"A single condition that must be matched in order for a component to be registered."
+One method: matches
+This is bases for @ConditionalOn annotations
+Conditions:
+Presence or absence of path on a class path:
+@ConditionalOnClass( name or value )
+@ConditionalOnMissingClass( name ) -> this one only takes an array of Strings, so you won't put them on the classpath
+Presence or absence of a defined bean:
+@ConditionalOnBean - name (bean name) or value, or annotation, or search
+@ConditionalOnMissingBean
+Presence or Absence of a property having a value
+@ConditionalOnProperty - many options: name of property, prefix, matchIfMissing, relaxedNames
+
+Writing our own AutoConfig
 
