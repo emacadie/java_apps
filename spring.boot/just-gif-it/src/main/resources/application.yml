@@ -1,0 +1,27 @@
+multipart:
+  location: ${java.io.tmpdir}
+  max-file-size: 50MB
+  max-request-size: 50MB
+
+# I think we need these for later versions of Spring Boot
+# per https://stackoverflow.com/questions/51410540/spring-upload-file-size-limit-error/52696355
+spring:
+  mvc:
+    favicon:
+      enabled: false
+  servlet:
+    multipart:
+      location: ${java.io.tmpdir}
+      max-file-size: 10MB
+      max-request-size: 10MB
+      enabled: true
+
+
+logging:
+  level:
+    root: DEBUG
+
+info:
+  shelfunit:
+    optimize: true
+    gif-location: ${java.io.tmpdir}/gif

@@ -104,5 +104,119 @@ Presence or absence of a defined bean:
 Presence or Absence of a property having a value
 @ConditionalOnProperty - many options: name of property, prefix, matchIfMissing, relaxedNames
 
+He put some of the classes into a new Maven module: just-gif-it-autoconfigure
+I had to run "mvn install" to get my local to see it.
+
 Writing our own AutoConfig
+@EnableAutoConfiguration
+has an @Import( EnableAutoConfigurationImportSeletor.class )
+(@Import is a Spring annotation)
+This does a lot of the work. It uses SpringFactoriesLoader.loadFactoryNames(...)
+Which looks for /META-INF/spring.factories
+That is a properties file
+It lists o.s.b.a.EnableAutoConfiguraion = o.s.b.a.SomeAutoConfig, others
+I know how Groovy processes Annotations. How do you do it in Java?
+Mine did not get the same result. This auto configuration stuff is hard.
+If this is what they call easy configuration, what is difficult?
+
+Spring Boot also allows YAML, typesafe configuration
+YAML:
+has a spec at yaml.org/spec
+Can have key/values (Map), Lists, Scalars
+Can be hierarchical, like Groovy
+Doesn't work with @PropertySource
+in properties:
+some_key=value
+some_number=9
+some_bool=true
+They all return as String
+
+YAML:
+some_key: value
+some_number: 9
+# boolean could be yes or no
+some_bool: true
+values can be returned as their type
+
+making a Map:
+in properties: You can use periods to create nesting (This is a Spring convention)
+somemap.key=value
+somemap.number=9
+# another map
+map2.bool=true
+map2.date=2020-01-01
+In YAML:
+somemap:
+    key: value
+    number: 9
+# inline map
+map2: { bool=true, date=2020-01-01 }
+For lists, Spring uses the array convention
+numbers[0]=one
+numbers[1]=two
+# inline by using commas
+numbers=one,two
+
+YAML:
+# one way, with indentation and a dash
+numbers:
+    - one
+    - two
+# inline
+numbers: [one, two]
+
+TypeSafe config with @ConfigurationProperties
+use it on a class
+define getters and setters
+annotate w/@Component (or @EnableConfigurationProperties)
+You can make your config as POJOs
+@Component
+@ConfigurationProperties( prefix = "my" )
+public class MyConfig {
+    Boolean featureEnabled;
+    public Boolean getFeatureEnabled() {
+        return featureEnabled;
+    }
+    public void setFeatureEnabled( Boolean argFeatureEnabled ) {
+        this.featureEnabled = argFeatureEnabled;
+    }
+}
+
+If you are not going to use @Component, do this:
+@SpringBootApplication
+@EnableConfigurationProperties( MyConfig.class )
+public class MyApplication {
+}
+Then:
+@Service
+public class MyService {
+    @Inject
+    private MyConfig config;
+}
+Maps and Collections: may not need a setter
+
+You can validate your configs with JSR-303 annotations
+You can use @ConfigurationProperties to configure third party classes
+using a prefix and a Factory
+
+Relaxed Config names:
+Class can have featureEnabled and config can have feature-enabled
+
+Spring Boot has a cascading resolution for configuration
+Covered here:
+https://docs.spring.io/spring-boot/docs/2.3.1.RELEASE/reference/html/spring-boot-features.html#boot-features-external-config
+
+Cloud
+https://docs.spring.io/spring-boot/docs/current/reference/html/production-ready-features.html
+Helps you to monitor your project
+add spring-boot-starter-actuator to your pom.xml
+/autoconfig gives autoconfiguration report (might not be in current version)
+/beans gives you all beans
+/configprops  for all config
+/dump for memory dump while it's running
+/health
+
+Install Docker, get an AWS account, do this, do that. Does it ever end?
+
+
 
