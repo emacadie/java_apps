@@ -6,28 +6,28 @@ Lambda expressions make code easier to read. A better way to write anonymous cla
 
 gradle compileJava
 gradle build
-gradle runJava -PmainClass=info.shelfunit.funcjava.ch02.ChapterTwoRunner -PmainArgs="pickName N"
+gradle runJava -PmyMainClass=info.shelfunit.funcjava.ch02.ChapterTwoRunner -PmainArgs="pickName N"
 
-gradle runJava -PmainClass=com.accenture.attrib.AttribViewer
+gradle runJava -PmyMainClass=com.accenture.attrib.AttribViewer
 
-gradle runJava -PmainClass=info.shelfunit.lambdas.LambdaRunner
-gradle runJava -PmainClass=info.shelfunit.lambdas.StreamRunner  -PmainArgs=workLiveCodingExercise
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.LambdaRunner
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.StreamRunner  -PmainArgs=workLiveCodingExercise
 
-gradle runJava -PmainClass=info.shelfunit.lambdas.StreamRunner  -PmainArgs="workLiveCodingExercise /home/ericm/github/java_apps/new.java8/persons.list.txt"
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.StreamRunner  -PmainArgs="workLiveCodingExercise /home/ericm/github/java_apps/new.java8/persons.list.txt"
 
-gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithInstant
-gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithNewDates
-gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithZones
-gradle runJava -PmainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=formatDates
-gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithStrings
-gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs="workWithIO /home/ericm/github/java_apps/new.java8/persons.list.txt"
-gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithDirectories
-gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithCollections
-gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithComparators
-gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=compareNumbers
-gradle runJava -PmainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=compareMaps
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithInstant
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithNewDates
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=workWithZones
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.DateTimeRunner -PmainArgs=formatDates
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithStrings
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs="workWithIO /home/ericm/github/java_apps/new.java8/persons.list.txt"
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithDirectories
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithCollections
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=workWithComparators
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=compareNumbers
+gradle runJava -PmyMainClass=info.shelfunit.lambdas.StringAndOtherRunner -PmainArgs=compareMaps
 
-gradle runJava -PmainClass=info.shelfunit.gui.FirstJFXApp 
+gradle runJava -PmyMainClass=info.shelfunit.gui.FirstJFXApp 
 
 Lambda is a functional interface (interface with one abstract method)
 Some in JDK already did that: Comparator, Runnable, FileFilter

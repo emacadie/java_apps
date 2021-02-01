@@ -66,8 +66,9 @@ task runJava( type: JavaExec ) {
     dependsOn classes
     description = 'Run gradle.sample.SampleApp'
     // Java main class to execute.
-    if ( rootProject.hasProperty( "mainClass" ) ) {
-        main = mainClass
+    if ( project.hasProperty( "myMainClass" ) ) {
+       mainClass.set( project.findProperty( "myMainClass" ).toString() )
+        // mainClass = mainClass
     } else {
         main = mainClassExt
     }

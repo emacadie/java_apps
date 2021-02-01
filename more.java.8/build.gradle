@@ -5,8 +5,13 @@ apply plugin: 'groovy'
 // apply plugin: 'checkstyle'
 
 repositories {
-    mavenCentral()
-    //jcenter()
+  mavenCentral()
+  //jcenter()
+  /*
+        jcenter {
+            url "http://jcenter.bintray.com/"  // <=THIS IS THE LINE THAT MAKES THE DIFFERENCE
+        }
+		*/
 }
 
 // these need a value (even a single-letter string)
@@ -16,14 +21,27 @@ project.ext.mainArgsExt="implementComparator"
 
 allprojects {
   dependencies {
-      testImplementation 'junit:junit:4.10'
+    testCompile 'junit:junit:4.10'
+    // testCompile 'org.mockito:mockito-all:[1.8.5,)'
+    // From Maven, it's GroupId:ArtifactId:Version 
+    // testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
 
-      implementation 'log4j:log4j:1.2.17'
+    // testCompile ''
+    // compile 'commons-codec:commons-codec:1.6'
+    compile 'log4j:log4j:1.2.17'
 
-        // logging
-      implementation 'org.slf4j:slf4j-api:1.7.+'
+    // logging
+    compile 'org.slf4j:slf4j-api:1.7.+'
+    // testRuntime 'org.slf4j:slf4j-ext:1.7.+'
+    // testRuntime 'org.slf4j:jcl-over-slf4j:1.7.+'
+    // testRuntime 'org.slf4j:jul-to-slf4j:1.7.+'
+    // testRuntime 'org.slf4j:log4j-over-slf4j:1.7.+'
+    
+    // testRuntime 'ch.qos.logback:logback-core:1.0.+'
+    // testRuntime 'ch.qos.logback:logback-classic:1.0.+'
 
-      implementation fileTree(dir: 'lib', include: ['*.jar'])
+    // compile 'org.codehaus.groovy:groovy-all:2.4.8'
+	compile fileTree(dir: 'lib', include: ['*.jar'])
   }
 
   tasks.withType( JavaCompile ) { JavaCompile compile ->
@@ -48,8 +66,9 @@ task runJava( type: JavaExec ) {
     dependsOn classes
     description = 'Run gradle.sample.SampleApp'
     // Java main class to execute.
-    if ( rootProject.hasProperty( "mainClass" ) ) {
-        main = mainClass
+    if ( project.hasProperty( "myMainClass" ) ) {
+       mainClass.set( project.findProperty( "myMainClass" ).toString() )
+        // mainClass = mainClass
     } else {
         main = mainClassExt
     }
