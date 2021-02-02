@@ -1,0 +1,14 @@
+Java 15:
+Major addition: Text blocks/multi-line strings
+Preview features: records, sealed classes and pattern matching
+Release date for Java 15: 2020-09-15
+New versions of Java every six months
+Long-term support (LTS) releases every 3 years
+Java 11 is the last one
+Java 17 will be the next one
+
+Catching up
+Java 9: Module system
+Java 10: Type inference with var
+Java 11: All-new HttpClient API
+

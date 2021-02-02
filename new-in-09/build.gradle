@@ -1,0 +1,128 @@
+plugins {
+    id "java"
+    id "groovy"
+    id "com.github.mrsarm.jshell.plugin" version "1.0.0"
+}
+
+repositories {
+  mavenCentral()
+  // jcenter()
+  /*
+        jcenter {
+            url "http://jcenter.bintray.com/"  // <=THIS IS THE LINE THAT MAKES THE DIFFERENCE
+        }
+		*/
+}
+
+
+// these need a value (even a single-letter string)
+// even if some values are passed in for mainClass and mainArgs
+project.ext.mainClassExt="info.shelfunit.lambdas"
+project.ext.mainArgsExt="implementComparator"
+
+allprojects {
+    dependencies {
+        testImplementation 'junit:junit:4.10'
+
+        implementation 'log4j:log4j:1.2.17'
+        implementation 'org.slf4j:slf4j-api:1.7.+'
+
+        implementation fileTree(dir: 'lib', include: ['*.jar'])
+  }
+
+    // this might cause problems later
+  tasks.withType( JavaCompile ) { JavaCompile compile ->
+    compile.options.debug = true
+    compile.options.compilerArgs = [
+      '-Xlint:deprecation',
+      '-Xlint:unchecked'
+      ]
+  }
+
+}
+
+// to see these, run "gradle tasks --all"
+tasks.register( 'printClasspath' ) {
+    doLast {
+        println sourceSets.main.runtimeClasspath.asPath
+    }
+}
+
+tasks.register( 'hello' ) {
+    doLast {
+        println 'hello'
+    }
+}
+
+test {
+  maxParallelForks = 5
+  forkEvery = 50
+  // this will make it run the test every time you run 'gradle test'
+  outputs.upToDateWhen { false }
+}
+
+task runJava( type: JavaExec ) {
+    println( "-- Groovy version: " + groovy.lang.GroovySystem.getVersion() )
+    dependsOn classes
+    description = 'Run gradle.sample.SampleApp'
+    // Java main class to execute.
+    if ( project.hasProperty( "myMainClass" ) ) {
+       mainClass.set( project.findProperty( "myMainClass" ).toString() )
+        // mainClass = mainClass
+    } else {
+        main = mainClassExt
+    }
+    // We need to set the classpath.
+    classpath sourceSets.main.runtimeClasspath
+    // Extra options can be set.
+    systemProperty 'sysProp', 'notUsed'
+    println System.properties['iterations'] 
+    systemProperty 'iterations', System.properties['iterations'] 
+    // you can use this if nothing is set via command line
+    // systemProperties = System.getProperties()
+    jvmArgs '-server'
+    // We can pass arguments to the main() method
+    if ( rootProject.hasProperty( "mainArgs" ) ) {
+        args = mainArgs.tokenize() // args wants a List, so split by spaces if need be
+    } else {
+        args = mainArgsExt.tokenize()
+    }
+}
+
+task runGroovy( type: JavaExec ) {
+    println( "-- Groovy version: " + groovy.lang.GroovySystem.getVersion() )
+    dependsOn classes
+    description = 'Run gradle.sample.SampleApp'
+    // main class to execute
+    if ( rootProject.hasProperty("mainClass") ) {     
+     	main = mainClass
+    } else {
+        main = mainClassExt
+    }
+    // We need to set the classpath.
+    classpath sourceSets.main.runtimeClasspath
+    // Extra options can be set.
+    systemProperty 'sysProp', 'notUsed'
+    jvmArgs '-client'
+    // We can pass arguments to the main() method
+    if ( rootProject.hasProperty( "mainArgs" ) ) {
+        args = mainArgs.tokenize() // args wants a List, so split by spaces if need be
+    } else {
+        args = mainArgsExt.tokenize()
+    }
+}
+
+task showProperties {
+  doLast {
+    println "Version: $version"
+    println "Custom property: $customProperty"
+  }
+}
+
+// you can type "gradle console" and get a console with all your classes
+task( console, dependsOn: 'classes', type: JavaExec ) {
+  main = 'groovy.ui.Console'
+  classpath = sourceSets.main.runtimeClasspath
+}
+
+

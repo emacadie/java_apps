@@ -1,0 +1,117 @@
+New In Java 9:
+Modularity, in 2017
+1. Modules - JDK is modularlized, and you can modularize your app
+2. JShell - like a REPL?
+3. Library and Language improvements
+4. New APIs -
+5. Desktop Java enhancements
+6. Performance and Security
+
+The Module System
+One of the biggest changes in Java, ever
+Affects language, compiler, virtual machine, tooling
+
+Why add it?
+One reason: to modularize the JDK, address technical debt, make JDK more maintainable
+Also: Now applications can be modularized
+Using it is optional in your apps
+
+Before: Java was in huge JAR: rt.jar, many entangled classes, runtime was hard to evolve
+Java likes to maintain backwards-compatibility
+There are 90 platform modules
+java.base is most important
+The API pages for a module will show you a modules depedencies
+(but not what modules depend on it)
+No cyclid dependecies
+
+java.corba is now in its own module
+advantages: increases security, since some packages can now be hidden
+many small parts, reduced footprint
+easy deprecation
+java.corba: Marked for deprecation in java 9, not in java 11
+
+what is a module?
+module has a name, it groups related code, and is self-contained
+are JAR files modules? they have filenames, but that is not important at run-time
+They do group related code, but they can use classes from another JAR, and they have weak boundaries
+In a module, some packages are available to other modules, and some are private and cannot be accessed outside module
+so no more using com.sun.misc
+module descriptor is in module-info.java
+module java.base {
+    exports java.lang;
+    exports java.util;
+    exports java.io;
+    // many more
+}
+The packages that are encapsulated are not mentioned in the descriptor
+What about modules that depend on other modules?
+say, java.sql, which depends on java.logging and java.xml:
+module java.sql {
+    exports java.sql; // these are package names
+    exports javax.sql;
+    exports javax.transaction.xa;
+    requires java.logging; // these are module names
+    requires java.xml;
+}
+"module", "exports" and "requires" are only keywords in module-info.java
+You can list modules:
+java --list-modules
+You can grep for a module
+Describe a module:
+java --describe-module java.sql
+result:
+java.sql@15.0.2
+exports java.sql
+exports javax.sql
+requires java.xml transitive
+requires java.logging transitive
+requires java.transaction.xa transitive
+requires java.base mandated
+uses java.sql.Driver
+
+migration concerns:
+You should still be able to run w/using classpath in the commands
+unless:
+1. You use JDK classes that have been encapsulated
+2. You use types from non-default Java modules
+what to do about #1:
+JDK will create a virtual module w/your JARs
+For now apps w/encapsulated classes, will compile w/JDK8 and run w/JDK9
+But will not not compile w/JDK9
+New code plays by the rules
+if you really really have to, you can run with "java --illegal-access=permit"
+I think "--illegal-access=permit" was removed. I don't see it when I run "java --help" w/Java 15
+There was a "--add-exports" option for javac and java, but I think that was removed too.
+To find dependencies, run "jdeps" tool
+jdeps -jdkinternals SomeClass.class
+It will tell you if you are using an encapsulated class, and suggests replacements
+
+#2:
+javax.xml.bind.DatatypeConverter - was available before in JDK
+now in java.xml.bind (in JDK 9, deprecated for removal)
+many app servers have their own xml jars
+use "javac --add-modules java.xml.bind"
+Also do that when you run: "java --add-modules java.xml.bind"
+jdeps will help with this
+
+JShell: A REPL for Java
+https://github.com/mrsarm/jshell-plugin
+https://github.com/bitterfox/jshell-gradle-plugin
+Not intended to replace other tools
+https://plugins.gradle.org/search?term=jshell
+You can test out ideas
+No need to create a class (but you can do this w/tests)
+Explore APIs
+https://advancedweb.hu/prototyping-with-jshell/
+https://advancedweb.hu/using-external-libraries-in-jshell/
+
+at console, type "jshell"
+to exit: "/exit"
+Or control-D
+Bit shifting is a good thing to try here
+same w/regular expressions
+control-L clears screen
+has tab-completion
+It would be great to use this w/Maven or Gradle
+
+
