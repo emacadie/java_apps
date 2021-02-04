@@ -114,4 +114,66 @@ control-L clears screen
 has tab-completion
 It would be great to use this w/Maven or Gradle
 
+JShell and environment
+https://docs.oracle.com/javase/10/jshell/commands.htm
+https://docs.oracle.com/javase/10/jshell/toc.htm
+You can use /open to open a *.jsh file, or *.java file
+set classpath to load JARs
+jshell --class-path .....
+StringUtils.leftPad(
+Then type tab
+If there are multiple arg combos, they will be displayed
+
+Module 4: Lang changes
+
+Collection factory methods
+Collections: The old way:
+List< String > books = new ArrayList< String >();
+books.add( "aaaa" );
+books.add( "bbb" );
+books.add( "ccccc" );
+Verbose
+Won't work as field initializer
+Now we have "of" methods
+Null not allowed
+List.of(  ) creates an immutable list
+List< Integer > ints = List.of( 1, 2, 3 )
+Good for small collections
+Overloaded to 10 elements
+java.util.ImmutableCollections
+There is also Set.of
+Map.of and Map.ofEntries
+
+Perhaps time to look into persistent collections
+w/Map.of, you gives args alternating between keys and values
+Map.of( "Key1", 1, "Key2", 2 )
+Need to have even number of args
+ofEntries takes entries (looks like a LOT of typing)
+From javadoc:
+ import static java.util.Map.entry;
+
+     Map<Integer,String> map = Map.ofEntries(
+         entry(1, "a"),
+         entry(2, "b"),
+         entry(3, "c"),
+         ...
+         entry(26, "z"));
+.
+Stream API:
+Streams can only be used once
+You can use map, filter, forEach, other transformation APIs,
+until a terminal operation (like forEach, or collect (which converts to a collection), or reduce)
+Added methods added:
+takeWhile
+dropWhile
+ofNullable
+iterate
+
+takeWhile takes a predicate
+sort of like filter, but it stops on the first element that fails the filter; later elements that fulfill predicate are dropped
+dropWhile is opposite of takeWhile - starts on first element that fails filter; later elements that fulfill predicate are kept
+You should probably use this with sorted collections
+
+
+
 

@@ -30,6 +30,7 @@ allprojects {
         implementation fileTree(dir: 'lib', include: ['*.jar'])
   }
 
+    /*
     // this might cause problems later
   tasks.withType( JavaCompile ) { JavaCompile compile ->
     compile.options.debug = true
@@ -38,6 +39,7 @@ allprojects {
       '-Xlint:unchecked'
       ]
   }
+    */
 
 }
 
