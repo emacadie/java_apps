@@ -1,7 +1,15 @@
 package info.shelfunit.newin9;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Stream;
+
+import java.util.stream.Collectors;
 
 public class StreamRunner {
 
@@ -25,6 +33,55 @@ public class StreamRunner {
         System.out.println();
     } // workWithTakeWhile
 
+    public void workWithBooks() {
+        System.out.println( "In workWithBooks" );
+        long zero = Stream.ofNullable( null ).count();
+        long one = Stream.ofNullable( Book.getBook() ).count();
+        System.out.printf( "zero: %d, one: %d \n", zero, one );
+
+        System.out.println( "Before ofNullable, it was hard to deal w/nulls" );
+        Book book = getPossiblyNull(true );
+        Stream< String > authors =
+                book == null ? Stream.empty() : book.authors.stream();
+        authors.forEach( System.out::println );
+
+        System.out.println( "calling getPossiblyNull w/true in Stream.ofNullable" );
+        Stream.ofNullable( getPossiblyNull(true ) )
+                .flatMap( b -> b.authors.stream() )
+                .forEach( System.out::println );
+
+        System.out.println( "With ofNullable, dealing w/nulls is easier" ); // this seems
+        Stream.ofNullable( getPossiblyNull(false ) )
+                .flatMap( b -> b.authors.stream() )
+                .forEach( System.out::println );
+
+    } // workWithBooks
+
+    private static Book getPossiblyNull( boolean isNull ) {
+        return isNull ? null : Book.getBook();
+    }
+
+    public void findGitConflict( String path ) {
+        try {
+            System.out.println( "findGitConflict w/path: " + path );
+            Files.lines( Paths.get( path ) )
+                    .dropWhile( l -> !l.contains( "<<<<<<<" ) )
+                    .skip( 1 )
+                    .takeWhile( l -> !l.contains( ">>>>>>>" ) )
+                    .forEach( l -> System.out.println( l ) );
+        } catch ( IOException ioEx ) {
+            System.out.println( "IOException in findGitConflict w/path: " + path  );
+
+        }
+    } // findGitConflict
+
+    public void workWithCollectors() {
+        System.out.println( "workWithCollectors" );
+        Map< Integer, List< Integer > > ints = Stream.of( 1, 2, 3, 3 )
+                .collect( Collectors.groupingBy( i -> i % 2,  Collectors.toList() ) );
+        System.out.println( "Here is ints: " + ints.toString() );
+    } // workWithCollectors
+
     public static void main( String args[] ) {
         StreamRunner sr = new StreamRunner();
         String methodToRun = args[ 0 ];
@@ -32,11 +89,16 @@ public class StreamRunner {
             case "workWithTakeWhile":
                 sr.workWithTakeWhile();
                 break;
-            case "workWithReduce":
-
+            case "workWithBooks":
+                sr.workWithBooks();
                 break;
-            case "doMoreWorkWithStreams":
-
+            case "findGitConflict":
+                if ( null != args[ 1 ]  ) {
+                    sr.findGitConflict( args[ 1 ] );
+                }
+                break;
+            case "workWithCollectors":
+                sr.workWithCollectors();
                 break;
             default:
                 System.out.println( "No method named " + methodToRun );

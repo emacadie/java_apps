@@ -1,3 +1,6 @@
 gradle run --args="foo --bar" -PmainClass="info.shelfunit.tutorial.module13.Module13RunnerKt"
 
 gradle runJava --args="workWithTakeWhile" -PmyMainClass="info.shelfunit.newin9.StreamRunner"
+gradle runJava --args="workWithBooks" -PmyMainClass="info.shelfunit.newin9.StreamRunner"
+gradle runJava --args="findGitConflict resources/index.html" -PmyMainClass="info.shelfunit.newin9.StreamRunner"
+gradle runJava --args="workWithCollectors" -PmyMainClass="info.shelfunit.newin9.StreamRunner"

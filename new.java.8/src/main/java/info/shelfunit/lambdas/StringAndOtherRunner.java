@@ -390,7 +390,7 @@ public class StringAndOtherRunner {
                 break;
             case "workWithIO":
                 if ( null != args[ 1 ]  ) {
-                    sr.workWithIO(args[1]);
+                    sr.workWithIO( args[ 1 ] );
                 }
                 break;
             case "workWithDirectories":
