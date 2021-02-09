@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collector;
 import java.util.stream.Stream;
 
@@ -80,6 +81,22 @@ public class StreamRunner {
         Map< Integer, List< Integer > > ints = Stream.of( 1, 2, 3, 3 )
                 .collect( Collectors.groupingBy( i -> i % 2,  Collectors.toList() ) );
         System.out.println( "Here is ints: " + ints.toString() );
+
+        Map< Set< String >, Set< Book > > booksByAuthors =
+                Book.getBooks().collect( Collectors.groupingBy( b -> b.getAuthors(),
+                        Collectors.filtering( b -> b.getPrice() > 10, Collectors.toSet() )
+                )
+                );
+        System.out.println( "Here is booksByAuthors: " + booksByAuthors.toString() ) ;
+        Map< Double, Set< String > > authorsSellingForPrice =
+                Book.getBooks().collect(
+                  Collectors.groupingBy(
+                          b -> b.getPrice(),
+                          Collectors.flatMapping(
+                                  b -> b.getAuthors().stream(),
+                                  Collectors.toSet() ) )
+                );
+        System.out.println( "Here is authorsSellingForPrice: " + authorsSellingForPrice );
     } // workWithCollectors
 
     public static void main( String args[] ) {

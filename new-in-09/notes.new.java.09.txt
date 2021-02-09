@@ -179,4 +179,8 @@ They materialize the stream into a new collection
 From javadoc for java.util.stream.Collectors: Implementations of Collector that implement various useful reduction operations,
 such as accumulating elements into collections, summarizing elements according to various criteria, etc.
 Also Collectors.groupingBy
+New collectors: filtering: takes a Predicate and a downstream Collector
+flatMapping: returns a Collector, takes a mapper function, and a downstream collector
+Streams and Collectors are getting pretty complicated
+
 
