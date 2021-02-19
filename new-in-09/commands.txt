@@ -4,3 +4,9 @@ gradle runJava --args="workWithTakeWhile" -PmyMainClass="info.shelfunit.newin9.S
 gradle runJava --args="workWithBooks" -PmyMainClass="info.shelfunit.newin9.StreamRunner"
 gradle runJava --args="findGitConflict resources/index.html" -PmyMainClass="info.shelfunit.newin9.StreamRunner"
 gradle runJava --args="workWithCollectors" -PmyMainClass="info.shelfunit.newin9.StreamRunner"
+gradle runJava --args="workWithStreams" -PmyMainClass="info.shelfunit.newin9.OptionalRunner"
+gradle runJava --args="workWithBooks" -PmyMainClass="info.shelfunit.newin9.OptionalRunner"
+gradle runJava --args="workWithIfPresentOrElse" -PmyMainClass="info.shelfunit.newin9.OptionalRunner"
+gradle runJava --args="workWithOr" -PmyMainClass="info.shelfunit.newin9.OptionalRunner"
+
+

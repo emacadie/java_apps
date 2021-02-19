@@ -121,6 +121,6 @@ public class StreamRunner {
                 System.out.println( "No method named " + methodToRun );
         }
 
-    }
+    } // main
 
 }

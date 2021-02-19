@@ -36,9 +36,9 @@ public class Book {
 
     public static Stream< Book > getBooks() {
         return Stream.of(
-                new Book("Java 9 Modularity", Set.of( "Sander Mak", "Paul Bakker" ), 33.99 ),
-                new Book("Designing Data-Intensive Applications", Set.of( "Martin Klepmann" ), 38.99 ),
-                new Book("Java 8 Lambdas", Set.of( "Richard Warburton" ), 33.99 ),
+                new Book( "Java 9 Modularity", Set.of( "Sander Mak", "Paul Bakker" ), 33.99 ),
+                new Book( "Designing Data-Intensive Applications", Set.of( "Martin Klepmann" ), 38.99 ),
+                new Book( "Java 8 Lambdas", Set.of( "Richard Warburton" ), 33.99 ),
                 new Book( "Java Stream Almanac", Set.of( "Poor Richard" ), 9.00 ),
                 new Book( "The Expanded Java Stream Almanac", Set.of( "Poor Richard" ), 11.00 ),
                 new Book( "Structure and Interpretation of Java", Set.of( "Gerald Fussman" ), 9.00 )
